@@ -14,6 +14,7 @@ public class MapperService {
         if (userLink == null)
             return null;
 
-        return TwentyFiveMapper.INSTANCE.userLinkToUserLinkDocumentDB(userLink);
+        UserLinkDocumentDB result = TwentyFiveMapper.INSTANCE.userLinkToUserLinkDocumentDB(userLink);
+        return result;
     }
 }
