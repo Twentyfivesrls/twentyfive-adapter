@@ -17,7 +17,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Twentyfivesrls Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/Twentyfivesrls/linktree-api-layer</url>
+            <url>https://maven.pkg.github.com/Twentyfivesrls/twentyfive-adapter</url>
         </repository>
     </distributionManagement>
 
