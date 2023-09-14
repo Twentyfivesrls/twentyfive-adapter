@@ -9,4 +9,5 @@ import twentyfive.twentyfiveadapter.Document.UserLinkDocumentDB;
 public interface TwentyFiveMapper {
     TwentyFiveMapper INSTANCE = Mappers.getMapper(TwentyFiveMapper.class);
     UserLinkDocumentDB userLinkToUserLinkDocumentDB(UserLink userLink);
+    UserLink userLinkDocumentDBToUserLink(UserLinkDocumentDB userLinkDocumentDB);
 }
