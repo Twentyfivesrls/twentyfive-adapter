@@ -1,4 +1,4 @@
-package twentyfive.twentyfiveadapter.linktreeAdapter.controller;
+package twentyfive.twentyfiveadapter.adapter.controller;
 
 
 
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import twentyfive.twentyfiveadapter.linktreeAdapter.Document.UserLinkDocumentDB;
-import twentyfive.twentyfiveadapter.linktreeAdapter.service.MapperService;
+import twentyfive.twentyfiveadapter.adapter.Document.UserLinkDocumentDB;
+import twentyfive.twentyfiveadapter.adapter.service.MapperService;
 
 @RestController
 @RequestMapping("/mapper")

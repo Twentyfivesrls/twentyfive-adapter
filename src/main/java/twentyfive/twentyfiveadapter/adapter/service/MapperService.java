@@ -1,10 +1,10 @@
-package twentyfive.twentyfiveadapter.linktreeAdapter.service;
+package twentyfive.twentyfiveadapter.adapter.service;
 
 
 import com.twentyfive.twentyfivemodel.models.linktreeModels.UserLink;
 import org.springframework.stereotype.Service;
-import twentyfive.twentyfiveadapter.linktreeAdapter.Document.UserLinkDocumentDB;
-import twentyfive.twentyfiveadapter.linktreeAdapter.Mapper.TwentyFiveMapper;
+import twentyfive.twentyfiveadapter.adapter.Document.UserLinkDocumentDB;
+import twentyfive.twentyfiveadapter.adapter.Mapper.TwentyFiveMapper;
 
 @Service
 public class MapperService {

@@ -1,4 +1,4 @@
-package twentyfive.twentyfiveadapter.linktreeAdapter.Document;
+package twentyfive.twentyfiveadapter.adapter.Document;
 
 
 
