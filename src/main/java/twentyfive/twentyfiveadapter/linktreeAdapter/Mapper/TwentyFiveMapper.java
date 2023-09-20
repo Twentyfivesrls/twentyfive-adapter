@@ -1,9 +1,9 @@
-package twentyfive.twentyfiveadapter.Mapper;
+package twentyfive.twentyfiveadapter.linktreeAdapter.Mapper;
 
-import com.twentyfive.twentyfivemodel.models.UserLink;
+import com.twentyfive.twentyfivemodel.models.linktreeModels.UserLink;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import twentyfive.twentyfiveadapter.Document.UserLinkDocumentDB;
+import twentyfive.twentyfiveadapter.linktreeAdapter.Document.UserLinkDocumentDB;
 
 @Mapper
 public interface TwentyFiveMapper {
