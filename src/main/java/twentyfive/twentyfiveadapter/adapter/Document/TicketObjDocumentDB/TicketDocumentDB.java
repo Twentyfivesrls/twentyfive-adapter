@@ -24,4 +24,5 @@ public class TicketDocumentDB {
     private Boolean used;
     @Field("addressBookId")
     private String addressBookId;
+    private String userId;
 }

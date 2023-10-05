@@ -21,4 +21,5 @@ public class EventDocumentDB {
     private LocalDateTime date;
     private String location;
     private Boolean enabled; //meglio scrivere enabled???
+    private String userId;
 }
