@@ -53,5 +53,4 @@ public interface TwentyFiveMapper {
     ShortenLink shortenLinkDocumentDBToShortenLink(ShortenLinkDocumentDB shortenLinkDocumentDB);
 
 
-
 }
