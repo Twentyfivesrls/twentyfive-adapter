@@ -25,4 +25,5 @@ public class TicketDocumentDB {
     @Field("addressBookId")
     private String addressBookId;
     private String userId;
+    private String url;
 }
