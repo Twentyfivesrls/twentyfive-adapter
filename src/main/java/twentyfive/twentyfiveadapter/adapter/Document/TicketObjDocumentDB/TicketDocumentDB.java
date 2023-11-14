@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 public class TicketDocumentDB {
     @Id
     private String id;
+    private String eventId;
     private String eventName;
     private String code;
     private LocalDateTime eventDateStart;
