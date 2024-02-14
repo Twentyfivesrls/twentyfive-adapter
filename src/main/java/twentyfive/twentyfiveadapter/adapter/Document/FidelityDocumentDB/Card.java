@@ -26,5 +26,5 @@ public class Card {
     private int scanNumberExecuted;
     private Date creationDate; //when the card is created
     private Date lastScanDate; //when the card is scanned for the last time
-    public boolean isActive;
+    public Boolean isActive;
 }

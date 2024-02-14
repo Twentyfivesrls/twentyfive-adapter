@@ -24,5 +24,5 @@ public class CardGroup {
     private Date expirationDate;
     private int scanNumber; //number of scan that a card belonging to this group has to do
     private int numberOfDaysForPrize; //number of days a user can wait to claim the prize
-    private boolean isActive;
+    private Boolean isActive;
 }
