@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -20,8 +20,8 @@ public class CardGroup {
 
     private String name;
     private String description;
-    private Date creationDate;
-    private Date expirationDate;
+    private LocalDateTime creationDate;
+    private LocalDateTime expirationDate;
     private int scanNumber; //number of scan that a card belonging to this group has to do
     private int numberOfDaysForPrize; //number of days a user can wait to claim the prize
     private Boolean isActive;

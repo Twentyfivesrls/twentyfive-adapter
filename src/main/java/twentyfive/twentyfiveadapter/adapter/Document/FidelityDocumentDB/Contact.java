@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -21,5 +21,5 @@ public class Contact {
     private String surname;
     private String email;
     private String phoneNumber;
-    private Date creationDate;
+    private LocalDateTime creationDate;
 }

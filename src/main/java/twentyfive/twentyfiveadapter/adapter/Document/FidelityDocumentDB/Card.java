@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -24,7 +24,7 @@ public class Card {
     private String email;
     private int phoneNumber;
     private int scanNumberExecuted;
-    private Date creationDate; //when the card is created
-    private Date lastScanDate; //when the card is scanned for the last time
+    private LocalDateTime creationDate; //when the card is created
+    private LocalDateTime lastScanDate; //when the card is scanned for the last time
     public Boolean isActive;
 }
