@@ -3,6 +3,7 @@ package twentyfive.twentyfiveadapter.adapter.Document.ThubDocumentDB;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Document(collection = "thub_profile")
 public class ThubProfile {
 
+        @Id
         private String id;
         private String userId;
         private String title;
@@ -20,7 +22,7 @@ public class ThubProfile {
         private Boolean hasProPic;
         private String proPicUrl;
         private List<ThubLink> links;
-        private String template;
+        private String template; //nome del template in uso Default di base
         private ThubCustomTheme customTheme;
 
 }
