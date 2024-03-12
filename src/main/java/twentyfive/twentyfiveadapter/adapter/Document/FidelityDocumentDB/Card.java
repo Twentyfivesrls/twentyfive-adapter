@@ -22,7 +22,7 @@ public class Card {
     private String name;
     private String surname;
     private String email;
-    private int phoneNumber;
+    private String phoneNumber;
     private int scanNumberExecuted;
     private LocalDateTime creationDate; //when the card is created
     private LocalDateTime lastScanDate; //when the card is scanned for the last time
