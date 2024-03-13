@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,8 +16,8 @@ public class Premio {
 
     @Id
     private String id;
-
-    private String name;
     private String cardId;
-    private int quantity;
+
+    private LocalDateTime claimDate;
+    private boolean claimed;
 }
