@@ -16,8 +16,8 @@ public class ThubProfile {
 
         @Id
         private String id;
-        private String userId;
         private String username;
+        private String title;
         private String description;
         private Boolean hasProPic;
         private String proPicUrl;
