@@ -16,6 +16,7 @@ public class Contact {
 
     @Id
     private String id;
+    private String ownerId;
 
     private String name;
     private String surname;

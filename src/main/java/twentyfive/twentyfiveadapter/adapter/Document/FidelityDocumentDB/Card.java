@@ -18,6 +18,7 @@ public class Card {
     private String id;
     private String cardGroupId;
     private String customerId;
+    private String ownerId;
 
     private String name;
     private String surname;
