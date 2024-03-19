@@ -12,6 +12,6 @@ public class ThubLink {
     private String id;
     private String name;
     private String url;
-    private boolean isActive;
+    private boolean enabled;
     private String thumbnail;
 }
