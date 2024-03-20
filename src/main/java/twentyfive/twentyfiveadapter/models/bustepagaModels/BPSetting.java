@@ -1,6 +1,5 @@
 package twentyfive.twentyfiveadapter.models.bustepagaModels;
 
-import com.twentyfive.twentyfivemodel.models.bustepagaModels.BPConfiguration;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
