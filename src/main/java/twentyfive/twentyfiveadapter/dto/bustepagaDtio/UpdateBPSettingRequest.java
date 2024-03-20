@@ -1,4 +1,4 @@
-package twentyfive.twentyfiveadapter.dto;
+package twentyfive.twentyfiveadapter.dto.bustepagaDtio;
 
 import com.twentyfive.twentyfivemodel.models.bustepagaModels.BPConfiguration;
 import lombok.AllArgsConstructor;
