@@ -11,8 +11,9 @@ public class ThubCustomTheme {
 
     private String backgroundColor;
     private String backgroundImage;
-    private String buttonColor;
+    private String buttonShape;
     private String buttonStyle;
+    private String buttonColor;
     private String buttonTextColor;
     private String font;
     private String fontColor;
