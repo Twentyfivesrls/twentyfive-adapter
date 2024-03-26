@@ -11,10 +11,11 @@ public class ThubCustomTheme {
 
     private String backgroundColor;
     private String backgroundImage;
+    private String buttonFillColor;
     private String buttonShape;
     private String buttonStyle;
     private String buttonColor;
-    private String buttonTextColor;
+    private String buttonOutlineColor;
     private String font;
     private String fontColor;
 }
