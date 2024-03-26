@@ -12,9 +12,10 @@ public class ThubTemplate {
     private String name;
     private String backgroundColor;
     private String backgroundImage;
-    private String buttonColor;
+    private String buttonShape;
     private String buttonStyle;
-    private String buttonTextColor;
+    private String buttonColor;
+    private String buttonOutlineColor;
     private String font;
     private String fontColor;
 }
