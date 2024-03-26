@@ -1,7 +1,5 @@
 package twentyfive.twentyfiveadapter.models.thubModels;
 
-import com.twentyfive.twentyfivemodel.models.thubModels.ThubCustomTheme;
-import com.twentyfive.twentyfivemodel.models.thubModels.ThubLink;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
