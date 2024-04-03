@@ -1,4 +1,4 @@
-package com.twentyfive.subscription.model;
+package twentyfive.twentyfiveadapter.dto.keycloakDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

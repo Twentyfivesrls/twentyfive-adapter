@@ -11,7 +11,7 @@
 
     <groupId>com.twentyfive</groupId>
     <artifactId>twentyfive-adapters</artifactId>
-    <version>0.0.61</version>
+    <version>0.0.62</version>
     <packaging>jar</packaging>
 
     <distributionManagement>
@@ -74,6 +74,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok-mapstruct-binding</artifactId>
             <version>0.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-admin-client</artifactId>
+            <version>22.0.3</version>
         </dependency>
 
     </dependencies>
