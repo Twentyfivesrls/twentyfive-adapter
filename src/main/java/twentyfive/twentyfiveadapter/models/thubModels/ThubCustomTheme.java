@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ThubCustomTheme {
 
+    private String themeName;
     private String backgroundColor;
     private String backgroundImage;
     private String buttonShape;
