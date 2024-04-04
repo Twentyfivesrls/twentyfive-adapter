@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class ThubCustomTheme {
 
     private String themeName;
+    private String titleColor;
     private String backgroundColor;
     private boolean backgroundGradient;
     private String gradientColor;
