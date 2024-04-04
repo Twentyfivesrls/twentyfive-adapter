@@ -20,7 +20,6 @@ public class ThubProfile {
     private Boolean hasProPic;
     private String proPicUrl;
     private List<ThubLink> links;
-    private String template;
     private ThubCustomTheme customTheme;
 
 }
