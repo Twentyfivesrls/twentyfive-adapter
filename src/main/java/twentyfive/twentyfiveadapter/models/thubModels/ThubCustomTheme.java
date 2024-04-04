@@ -11,6 +11,8 @@ public class ThubCustomTheme {
 
     private String themeName;
     private String backgroundColor;
+    private boolean backgroundGradient;
+    private String gradientColor;
     private String backgroundImage;
     private String buttonShape;
     private String buttonStyle;
