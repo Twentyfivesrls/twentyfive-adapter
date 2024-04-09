@@ -14,7 +14,7 @@ public class TTAnimal {
 
     @Id
     private String id;
-    private String animalOwnerId;
+    private String ownerId;
 
     private String name;
     private String species;
@@ -27,4 +27,7 @@ public class TTAnimal {
     private boolean sterilization;
     private int age;
     private double weight;
+
+    private String address;
+    private String phone;
 }
