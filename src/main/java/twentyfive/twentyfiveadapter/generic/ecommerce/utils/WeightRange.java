@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-class WeightRange {
+public class WeightRange {
     private double minWeight;
     private double maxWeight;
 }
