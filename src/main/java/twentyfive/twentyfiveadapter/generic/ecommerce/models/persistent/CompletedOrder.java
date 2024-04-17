@@ -3,6 +3,7 @@ package twentyfive.twentyfiveadapter.generic.ecommerce.models.persistent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.BundleInPurchase;
 import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.ProductInPurchase;
 import twentyfive.twentyfiveadapter.generic.ecommerce.utils.OrderStatus;
 
@@ -17,6 +18,7 @@ public class CompletedOrder {
     private String id;
     private String customerId;
     private List<ProductInPurchase> productsInPurchase;
+    private List<BundleInPurchase> bundlesInPurchase;
     private LocalDate pickupDate;
     private LocalTime pickupTime;
     private double totalPrice;
