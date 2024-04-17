@@ -20,6 +20,5 @@ public class ProductInPurchase{
     private String text; // Testo aggiuntivo, forse per istruzioni o note speciali
     private String attachment; // Un allegato, presumibilmente un URL a un'immagine o a un documento
     private LocalDate deliveryDate; // La data di consegna del prodotto
-    private double pricePerKg; // Il prezzo al chilo del prodotto
     private double totalPrice; // Il prezzo totale per questa voce nel carrello
 }

@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class BundleInPurchase {
     private String bundleId; // L'ID del bundle
     private int quantity; // La quantità di bundle
+    private double totalPrice;
 }
