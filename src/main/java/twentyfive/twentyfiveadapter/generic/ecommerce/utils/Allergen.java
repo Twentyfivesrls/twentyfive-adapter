@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @Document("allergens")
 public class Allergen {
-    @Id
+    private String id;
     private String name;
     private String iconUrl; // L'URL dell'icona associata all'allergene
 }
