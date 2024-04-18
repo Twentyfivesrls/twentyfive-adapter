@@ -16,6 +16,7 @@ public class Bundle {
     private String type; // "standard" or "personalizzato"
     private List<Measure> measures; // Assume Measure è un'altra classe definita altrove e non salvata nel DB
     private String description;
+    private boolean enabled;
     private String imageUrl; // URL dell'immagine del bundle
     private double pricePerKg; // prezzo al kg
 }
