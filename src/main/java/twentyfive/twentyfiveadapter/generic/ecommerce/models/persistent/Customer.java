@@ -3,6 +3,7 @@ package twentyfive.twentyfiveadapter.generic.ecommerce.models.persistent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
 import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.Cart;
 
 @Data
@@ -12,6 +13,7 @@ public class Customer {
     private String id; // ID del cliente preso da KeyCloak
     private String name; // Nome del cliente
     private String surname; // Cognome del cliente
+    @Indexed(unique = true)
     private String email; // Email del cliente
     private String phoneNumber; // Numero di telefono del cliente
     private boolean enabled; // Se il cliente è abilitato o meno (admin può bloccare cliente)

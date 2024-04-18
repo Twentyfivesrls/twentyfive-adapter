@@ -3,6 +3,7 @@ package twentyfive.twentyfiveadapter.generic.ecommerce.models.persistent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
 import twentyfive.twentyfiveadapter.generic.ecommerce.utils.Allergen;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Ingredient {
     private String id;
+    @Indexed(unique = true)
     private String name;
     private List<String> allergenNames; // Utilizzo un enum per gli allergeni, che dovrai definire
     private String description;
