@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,4 +13,5 @@ public class BundleInPurchase {
     private String bundleId; // L'ID del bundle
     private int quantity; // La quantità di bundle
     private double totalPrice;
+    private List<String> productWeightedIds;
 }
