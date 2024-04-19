@@ -15,5 +15,5 @@ public class BundleInPurchase {
     private int quantity; // La quantità di bundle
     private Measure measure;
     private double totalPrice;
-    private List<String> productWeightedIds;
+    private List<ProductInPurchase> weightedProducts;
 }
