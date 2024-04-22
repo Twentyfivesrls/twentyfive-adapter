@@ -57,23 +57,7 @@ public class Cart {
         }
     }
 
-    /**
-     * Calcola il prezzo totale degli item selezionati.
-     * @param positions la lista degli indici degli item di cui calcolare il prezzo totale.
-     * @return il prezzo totale dei soli item selezionati.
-     */
-    public double calculateTotalPricesOfSelectedItems(List<Integer> positions) {
-        double totalPrice = 0;
-        Set<Integer> uniquePositions = new HashSet<>(positions); // Utilizza un set per evitare duplicati
-        for (Integer position : uniquePositions) {
-            if (position >= 0 && position < purchases.size()) {
-                totalPrice += purchases.get(position).getTotalPrice();
-            } else {
-                throw new IndexOutOfBoundsException("Index: " + position + " is out of bounds");
-            }
-        }
-        return totalPrice;
-    }
+
 
     /**
      * Pulisce completamente il carrello.
