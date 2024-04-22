@@ -10,10 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BundleInPurchase {
-    private String bundleId; // L'ID del bundle
-    private int quantity; // La quantità di bundle
+public class BundleInPurchase extends ItemInPurchase {
     private Measure measure;
-    private double totalPrice;
     private List<ProductInPurchase> weightedProducts;
 }
