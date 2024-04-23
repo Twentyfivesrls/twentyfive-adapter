@@ -1,20 +1,23 @@
-package twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic;
+package twentyfive.twentyfiveadapter.generic.ecommerce.models.persistent;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
-public class TimeSlotMap {
+public class TimeSlot {
     private Map<LocalDate, Map<LocalTime, Integer>> numSlotsMap; // Changes from Boolean to Integer
 
-    public TimeSlotMap() {
+    public TimeSlot() {
         this.numSlotsMap = new HashMap<>();
     }
 
     public void initializeDay(LocalDate date, Map<LocalTime, Integer> slotsPerHour) {
         // Directly put the provided map into the slotsMap for the given date
         numSlotsMap.put(date, new HashMap<>(slotsPerHour));
+    }
+    public void removeDay(LocalDate date){
+        numSlotsMap.remove(date);
     }
 
     /**
@@ -127,7 +130,7 @@ public class TimeSlotMap {
     }
 
     public static void main(String[] args) {
-        TimeSlotMap ts = new TimeSlotMap();
+        TimeSlot ts = new TimeSlot();
 
         // Initialize a day with time slots
         Map<LocalTime, Integer> slotsPerHour = new HashMap<>();
