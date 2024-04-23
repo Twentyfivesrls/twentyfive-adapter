@@ -88,7 +88,7 @@ public class TimeSlotMap {
             }
             if (count_holes >= num_slots) {
                 dailySlots.put(time, currentSlots - num_slots);
-                int slotLeft= num_slots- (currentSlots - num_slots);
+                int slotLeft= num_slots- currentSlots;
                 dailySlots.put(time, 0);
 
                 for (Map.Entry<LocalTime, Integer> possibleHolesMap : dayMap.entrySet()) {
@@ -147,7 +147,7 @@ public class TimeSlotMap {
 
         // Test reserving slots
         boolean reservationSuccess = ts.reserveSlots(LocalDate.now(), LocalTime.of(10, 0), 5);
-        System.out.println("Reservation at 9 AM successful: " + reservationSuccess);
+        System.out.println("Reservation at 10 AM successful: " + reservationSuccess);
 
         // Check availability after reservation
         availableSlots = ts.findTimeForSlots(startTime, 5);
