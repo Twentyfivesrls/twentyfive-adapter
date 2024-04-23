@@ -1,10 +1,13 @@
 package twentyfive.twentyfiveadapter.generic.ecommerce.models.persistent;
 
+import lombok.Data;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
+@Data
 public class TimeSlot {
     private Map<LocalDate, Map<LocalTime, Integer>> numSlotsMap; // Changes from Boolean to Integer
 
