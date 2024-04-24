@@ -15,6 +15,7 @@ public class Bundle {
     private String id;
     @Indexed(unique = true)
     private String name;
+    private String categoryId;
     private boolean customized; // "standard" or "personalizzato"
     private List<Measure> measures; // Assume Measure è un'altra classe definita altrove e non salvata nel DB
     private String description;
