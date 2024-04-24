@@ -9,6 +9,7 @@ import java.util.*;
 
 @Data
 public class TimeSlot {
+    private String id;
     private Map<LocalDate, Map<LocalTime, Integer>> numSlotsMap; // Changes from Boolean to Integer
 
     public TimeSlot() {

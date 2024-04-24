@@ -12,6 +12,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Setting {
+    private String id;
     private DateRange businessHours; // Orari di apertura collegati alla lavorazione del prodotto
     private DateRange labHours;
     private Map<WeightRange, Integer> preparationTimeRanges; // Mappa che collega range di peso ai tempi di preparazione
