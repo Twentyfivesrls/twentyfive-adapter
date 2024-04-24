@@ -11,5 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductKg extends Product{
+    private boolean customized; // "standard" or "personalizzato"
     private double pricePerKg; // Prezzo per kilogrammo
 }
