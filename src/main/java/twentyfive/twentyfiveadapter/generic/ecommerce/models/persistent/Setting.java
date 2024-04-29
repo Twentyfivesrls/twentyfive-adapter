@@ -18,9 +18,10 @@ import java.util.Map;
 public class Setting {
     private String id;
     private DateRange businessHours; // Orari di apertura collegati alla lavorazione del prodotto
-    private DateRange labHours;
-    private int maxMorningOrder;
-    private int maxAfternoonOrder;
-    private int minOrderDelay;
+    private DateRange labHours; // Orari del laboratorio
+    private int maxMorningOrder; //Ordini massimi di mattina
+    private int maxAfternoonOrder; // Ordini massimi di pomeriggio
+    private int minOrderDelay; //Minimo tempo di preparazione
+    private int minCancelOrder; //Tempo minimo cancellazione di un ordine
     private boolean enabled; // Gestisce il blocco degli ordini
 }
