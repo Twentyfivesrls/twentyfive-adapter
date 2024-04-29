@@ -116,6 +116,50 @@ public class TimeSlot {
         return false;
     }
 
+    public boolean freeNumSlot(LocalDateTime selectedDate, int numSlots, Map<LocalTime, Integer> maxPerHour) {
+        LocalDate date = selectedDate.toLocalDate();
+        LocalTime time = selectedDate.toLocalTime();
+
+        Map<LocalTime, Integer> daySlots = numSlotsMap.get(date);
+        if (daySlots == null) {
+            return false; // No slots available for this day
+        }
+
+        NavigableMap<LocalTime, Integer> subMap = new TreeMap<>(daySlots).headMap(time, true).descendingMap();
+        int slotsNeeded = numSlots;
+
+        // Temporary map to hold the changes until we are sure we can commit them
+        Map<LocalTime, Integer> tempChanges = new TreeMap<>();
+
+        // Check if redistribution is possible without exceeding maxPerHour for each hour
+        for (Map.Entry<LocalTime, Integer> entry : subMap.entrySet()) {
+            LocalTime currentHour = entry.getKey();
+            int availableSlots = entry.getValue();
+            Integer maxSlotsForThisHour = maxPerHour.getOrDefault(currentHour, Integer.MAX_VALUE);
+            int possibleAdditions = Math.min(slotsNeeded, maxSlotsForThisHour - availableSlots);
+
+            if (possibleAdditions > 0) {
+                tempChanges.put(currentHour, availableSlots + possibleAdditions);
+                slotsNeeded -= possibleAdditions;
+            }
+
+            if (slotsNeeded == 0) {
+                break; // We've successfully found enough slots
+            }
+        }
+
+        // If we were able to allocate all required slots, commit the changes
+        if (slotsNeeded == 0) {
+            for (Map.Entry<LocalTime, Integer> change : tempChanges.entrySet()) {
+                daySlots.put(change.getKey(), change.getValue());
+            }
+            return true;
+        }
+
+        // Not enough slots could be redistributed
+        return false;
+    }
+
 
 
     public String toString() {
