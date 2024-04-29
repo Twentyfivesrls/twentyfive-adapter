@@ -17,7 +17,8 @@ public class Customer {
     @Indexed(unique = true)
     private String email; // Email del cliente
     private String phoneNumber; // Numero di telefono del cliente
-    private boolean enabled; // Se il cliente è abilitato o meno (admin può bloccare cliente)
+    private boolean enabled=true; // Se il cliente è abilitato o meno (admin può bloccare cliente)
     private String note; // Note aggiuntive che l'admin può inserire sul cliente
     private Cart cart; // Carrello di acquisto associato al cliente (definizione di Cart necessaria)
+
 }
