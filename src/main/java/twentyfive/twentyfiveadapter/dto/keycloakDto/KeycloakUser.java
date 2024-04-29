@@ -3,7 +3,7 @@ package twentyfive.twentyfiveadapter.dto.keycloakDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.keycloak.representations.account.UserRepresentation;
+import org.keycloak.representations.idm.UserRepresentation;
 
 @Data
 @NoArgsConstructor
