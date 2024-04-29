@@ -86,11 +86,13 @@ public class TimeSlot {
         return false;
     }
 
-    public boolean reserveTimeSlots(LocalDate date, LocalTime time, int numSlots) {
+    public boolean reserveTimeSlots(LocalDateTime pickupDate, int numSlots) {
+        LocalDate date = pickupDate.toLocalDate();
         Map<LocalTime, Integer> dailySlots = numSlotsMap.get(date);
         if (dailySlots == null) {
             return false; // No slots available for this day
         }
+        LocalTime time= pickupDate.toLocalTime();
 
         if (checkForHoles(dailySlots, time, numSlots)) {
             int slotsToReserve = numSlots;
@@ -153,7 +155,7 @@ public class TimeSlot {
         System.out.println("Available slots from " + startTime + ": " + availableSlots);
 
         // Test reserving slots
-        boolean reservationSuccess = ts.reserveTimeSlots(LocalDate.now(), LocalTime.of(11, 0), 6);
+        boolean reservationSuccess = ts.reserveTimeSlots(LocalDateTime.now().withHour(11), 6);
         System.out.println("Reservation at 10 AM successful: " + reservationSuccess);
 
         // Check availability after reservation
