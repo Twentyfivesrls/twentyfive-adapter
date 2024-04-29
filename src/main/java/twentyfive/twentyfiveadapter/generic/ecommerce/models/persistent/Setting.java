@@ -19,8 +19,8 @@ public class Setting {
     private String id;
     private DateRange businessHours; // Orari di apertura collegati alla lavorazione del prodotto
     private DateRange labHours;
-    private Map<String,  Map<Double,Integer>> preparationHours; // Mappa che collega range di peso ai tempi di preparazione
     private int maxMorningOrder;
     private int maxAfternoonOrder;
+    private int minOrderDelay;
     private boolean enabled; // Gestisce il blocco degli ordini
 }
