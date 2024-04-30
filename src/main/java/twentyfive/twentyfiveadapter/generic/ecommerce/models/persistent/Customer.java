@@ -12,8 +12,8 @@ import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.Cart;
 public class Customer {
     private String id; // ID del cliente
     private String idKeycloak; //ID di Keycloak
-    private String name; // Nome del cliente
-    private String surname; // Cognome del cliente
+    private String firstName; // Nome del cliente
+    private String lastName; // Cognome del cliente
     @Indexed(unique = true)
     private String email; // Email del cliente
     private String phoneNumber; // Numero di telefono del cliente
