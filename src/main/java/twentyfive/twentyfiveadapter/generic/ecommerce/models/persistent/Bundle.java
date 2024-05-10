@@ -19,7 +19,7 @@ public class Bundle {
     private boolean customized; // "standard" or "personalizzato"
     private List<Measure> measures; // Assume Measure è un'altra classe definita altrove e non salvata nel DB
     private String description;
-    private boolean enabled;
+    private boolean active = true;
     private String imageUrl; // URL dell'immagine del bundle
     private double pricePerKg; // prezzo al kg
 }

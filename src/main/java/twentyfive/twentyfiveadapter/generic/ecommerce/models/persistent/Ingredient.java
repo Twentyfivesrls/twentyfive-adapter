@@ -19,5 +19,5 @@ public class Ingredient {
     private String description;
     private String categoryId;
     private boolean alcoholic; // True se l'ingrediente contiene alcol e viene usato solo per bagnare
-    private boolean active; // True se l'ingrediente è attivo/disponibile
+    private boolean active = true; // True se l'ingrediente è attivo/disponibile
 }

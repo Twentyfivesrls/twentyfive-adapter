@@ -18,5 +18,5 @@ public abstract class Product {
     private String description;
     private String categoryId;
     private String imageUrl;
-    private boolean active;
+    private boolean active = true;
 }

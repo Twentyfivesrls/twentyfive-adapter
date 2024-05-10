@@ -12,5 +12,4 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductWeighted extends Product{
     private double weight; // Peso specifico del prodotto
-    private double price; // Prezzo basato sul peso
 }
