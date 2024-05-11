@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WeightRange {
-    private String categoryName;
-    private boolean customized;
     private double minWeight;
     private double maxWeight;
 }

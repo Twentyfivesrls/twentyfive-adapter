@@ -3,14 +3,8 @@ package twentyfive.twentyfiveadapter.generic.ecommerce.models.persistent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.util.Pair;
 import twentyfive.twentyfiveadapter.generic.ecommerce.utils.DateRange;
-import twentyfive.twentyfiveadapter.generic.ecommerce.utils.WeightRange;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Data
 @NoArgsConstructor
