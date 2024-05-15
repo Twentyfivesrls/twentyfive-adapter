@@ -17,5 +17,6 @@ public class Setting {
     private int maxAfternoonOrder; // Ordini massimi di pomeriggio
     private int minOrderDelay; //Minimo tempo di preparazione
     private int minCancelOrder; //Tempo minimo cancellazione di un ordine
-    private boolean enabled; // Gestisce il blocco degli ordini
+    private boolean ordersEnabled; // Gestisce il blocco degli ordini
+    private boolean orderReceivedAlert; // Gestisce l'alert dell'ordine
 }
