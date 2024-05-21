@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PieceInPurchase {
     private String id;
-    private String quantity;
+    private int quantity;
+    private double weight;
 }
