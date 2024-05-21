@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 public class PieceInPurchase {
     private String id;
     private int quantity;
-    private double weight;
 }

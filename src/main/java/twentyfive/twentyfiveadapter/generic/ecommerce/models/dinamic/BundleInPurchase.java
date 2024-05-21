@@ -11,6 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BundleInPurchase extends ItemInPurchase {
-    private Measure measure;
+    private double weight;
     private List<PieceInPurchase> weightedProducts;
 }
