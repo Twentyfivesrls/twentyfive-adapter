@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import twentyfive.twentyfiveadapter.generic.ecommerce.utils.Measure;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -12,5 +13,5 @@ import java.util.List;
 @AllArgsConstructor
 public class BundleInPurchase extends ItemInPurchase {
     private Measure measure;
-    private List<PieceInPurchase> weightedProducts;
+    private List<PieceInPurchase> weightedProducts = new ArrayList<>();
 }
