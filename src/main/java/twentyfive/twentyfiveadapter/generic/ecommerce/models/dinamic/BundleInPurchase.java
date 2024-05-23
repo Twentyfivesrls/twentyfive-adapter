@@ -13,5 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class BundleInPurchase extends ItemInPurchase {
     private Measure measure;
+    private double totalWeight;
     private List<PieceInPurchase> weightedProducts = new ArrayList<>();
 }
