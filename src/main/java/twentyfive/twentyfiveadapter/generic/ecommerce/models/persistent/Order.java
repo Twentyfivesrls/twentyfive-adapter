@@ -22,6 +22,7 @@ public class Order {
     private LocalDate pickupDate;
     private LocalTime pickupTime;
     private double totalPrice;
+    private String decorationText;
     private String note;
     private OrderStatus status; // Assuming OrderStatus is an Enum
 }
