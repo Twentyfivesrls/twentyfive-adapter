@@ -8,6 +8,7 @@ import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.ProductInPu
 import twentyfive.twentyfiveadapter.generic.ecommerce.utils.OrderStatus;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -19,10 +20,10 @@ public class Order {
     private String customerId;
     private List<ProductInPurchase> productsInPurchase;
     private List<BundleInPurchase> bundlesInPurchase;
+    private LocalDateTime createdDate;
     private LocalDate pickupDate;
     private LocalTime pickupTime;
     private double totalPrice;
-    private String decorationText;
     private String note;
     private OrderStatus status; // Assuming OrderStatus is an Enum
 }
