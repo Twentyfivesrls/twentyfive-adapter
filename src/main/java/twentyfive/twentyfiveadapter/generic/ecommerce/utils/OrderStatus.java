@@ -1,10 +1,10 @@
 package twentyfive.twentyfiveadapter.generic.ecommerce.utils;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
 @AllArgsConstructor
-@Data
+@Getter
 public enum OrderStatus {
     RICEVUTO("Ricevuto"),
     IN_PREPARAZIONE("In preparazione"),
