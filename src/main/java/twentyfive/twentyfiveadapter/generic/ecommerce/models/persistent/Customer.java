@@ -20,6 +20,6 @@ public class Customer {
     private String phoneNumber; // Numero di telefono del cliente
     private boolean enabled=true; // Se il cliente è abilitato o meno (admin può bloccare cliente)
     private String note; // Note aggiuntive che l'admin può inserire sul cliente
-    private Cart cart; // Carrello di acquisto associato al cliente (definizione di Cart necessaria)
+    private Cart cart = new Cart(); // Carrello di acquisto associato al cliente (definizione di Cart necessaria)
 
 }
