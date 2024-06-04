@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class productStat {
+public class ProductStat {
     private String id;
     private String type;
     private int buyingCount = 0;
