@@ -1,9 +1,16 @@
 package twentyfive.twentyfiveadapter.generic.ecommerce.utils;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@AllArgsConstructor
+@Data
 public enum OrderStatus {
-    RICEVUTO,
-    IN_PREPARAZIONE,
-    PRONTO,
-    ANNULLATO,
-    COMPLETO;
+    RICEVUTO("Ricevuto"),
+    IN_PREPARAZIONE("In preparazione"),
+    PRONTO("Pronto"),
+    ANNULLATO("Annullato"),
+    COMPLETO("Completo");
+
+    private String status;
 }

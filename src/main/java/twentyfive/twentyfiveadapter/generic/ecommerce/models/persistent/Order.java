@@ -26,4 +26,5 @@ public class Order {
     private double totalPrice;
     private String note;
     private OrderStatus status; // Assuming OrderStatus is an Enum
+
 }
