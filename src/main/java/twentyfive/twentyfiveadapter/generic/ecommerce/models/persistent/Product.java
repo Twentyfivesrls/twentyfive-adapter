@@ -18,6 +18,5 @@ public abstract class Product {
     private String description;
     private String categoryId;
     private String imageUrl;
-    private int buyingCount = 0; //Numero di volte che un prodotto viene comprato
     private boolean active = true;
 }
