@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -17,4 +18,17 @@ public class ProductInPurchase extends ItemInPurchase{
     private boolean chocolateChips; // Un booleano per indicare se ci sono gocce di cioccolato o meno; sostituire con il nome corretto se necessario
     private String attachment; // Un allegato, presumibilmente un URL a un'immagine o a un documento
     private LocalDate deliveryDate; // La data di consegna del prodotto
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductInPurchase that = (ProductInPurchase) o;
+        return Double.compare(that.weight, weight) == 0 && this.getId().equals(that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId(), weight);
+    }
 }
