@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class FilterCardGroupRequest {
 
-    private boolean isActive;
+    private Boolean isActive;
     private LocalDateTime fromDate;
     private LocalDateTime toDate;
 
