@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -25,7 +26,7 @@ public class Card {
     private String email;
     private String phoneNumber;
     private int scanNumberExecuted;
-    private LocalDateTime creationDate; //when the card is created
-    private LocalDateTime lastScanDate; //when the card is scanned for the last time
+    private Date creationDate; //when the card is created
+    private Date lastScanDate; //when the card is scanned for the last time
     public Boolean isActive;
 }
