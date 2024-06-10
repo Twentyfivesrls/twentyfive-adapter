@@ -11,4 +11,8 @@ public class ProductStat {
     private String id;
     private String type;
     private int buyingCount = 0;
+
+    public ProductStat(String type){
+        this.type=type;
+    }
 }
