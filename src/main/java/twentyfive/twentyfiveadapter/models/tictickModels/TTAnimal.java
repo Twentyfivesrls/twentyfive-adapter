@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,5 +31,6 @@ public class TTAnimal {
     private double weight;
 
     private String address;
-    private String phone;
+    private List<String> phone;
+    private List<String> email;
 }
