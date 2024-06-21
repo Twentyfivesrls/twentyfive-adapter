@@ -11,11 +11,9 @@ import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.Cart;
 @AllArgsConstructor
 public class Customer {
     private String id; // ID del cliente
-    @Indexed(unique = true)
     private String idKeycloak; //ID di Keycloak
     private String firstName; // Nome del cliente
     private String lastName; // Cognome del cliente
-    @Indexed(unique = true)
     private String email; // Email del cliente
     private String phoneNumber; // Numero di telefono del cliente
     private boolean enabled=true; // Se il cliente è abilitato o meno (admin può bloccare cliente)
