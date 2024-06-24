@@ -14,5 +14,6 @@ public class FilterCardGroupRequest {
     private Boolean isActive;
     private LocalDateTime fromDate;
     private LocalDateTime toDate;
+    private String name;
 
 }
