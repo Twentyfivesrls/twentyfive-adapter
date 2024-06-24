@@ -12,9 +12,8 @@ import org.springframework.data.mongodb.core.index.Indexed;
 public class Category {
     private String id;
     private String type;
-    @Indexed(unique = true)
     private String name;
-    private boolean enabled;
-    private boolean softDeleted;
+    private boolean enabled = true;
+    private boolean softDeleted = false;
     private int orderPriority; //ordine di visualizzazione
 }
