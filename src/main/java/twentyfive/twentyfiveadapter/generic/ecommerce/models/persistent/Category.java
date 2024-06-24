@@ -15,5 +15,6 @@ public class Category {
     @Indexed(unique = true)
     private String name;
     private boolean enabled;
+    private boolean softDeleted;
     private int orderPriority; //ordine di visualizzazione
 }
