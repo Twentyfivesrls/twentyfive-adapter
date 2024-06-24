@@ -12,11 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 public abstract class Product {
     private String id;
-    @Indexed(unique = true)
     private String name;
     private List<String> ingredientIds;
     private String description;
     private String categoryId;
     private String imageUrl;
-    private boolean active = true;
+    private boolean active = true; //il prodotto rimane visibile ma disattivato
+    private boolean softDeleted = false; //il prodotto è cancellato in modo "soft"
 }

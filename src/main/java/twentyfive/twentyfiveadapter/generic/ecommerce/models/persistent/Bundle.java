@@ -13,13 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 public class Bundle {
     private String id;
-    @Indexed(unique = true)
     private String name;
     private String categoryId;
     private boolean customized; // "standard" or "personalizzato"
     private List<Measure> measures; // Assume Measure è un'altra classe definita altrove e non salvata nel DB
     private String description;
-    private boolean active = true;
+    private boolean active = true; //il prodotto rimane visibile ma disattivato
+    private boolean softDeleted = false; //il prodotto è cancellato in modo "soft"
     private String imageUrl; // URL dell'immagine del bundle
     private double pricePerKg; // prezzo al kg
 }
