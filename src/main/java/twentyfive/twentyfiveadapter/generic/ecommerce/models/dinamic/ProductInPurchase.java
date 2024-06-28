@@ -24,12 +24,17 @@ public class ProductInPurchase extends ItemInPurchase{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false; // Check superclass fields (assuming ItemInPurchase has fields to compare)
+
         ProductInPurchase that = (ProductInPurchase) o;
-        return Double.compare(that.weight, weight) == 0 && this.getId().equals(that.getId());
+        return Double.compare(that.weight, weight) == 0 &&
+                Objects.equals(shape, that.shape) &&
+                Objects.equals(customization, that.customization) &&
+                Objects.equals(attachment, that.attachment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getId(), weight);
+        return Objects.hash(this.getId(), this.weight,this.customization,this.attachment,this.shape);
     }
 }
