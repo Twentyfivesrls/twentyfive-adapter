@@ -1,20 +1,16 @@
-package twentyfive.twentyfiveadapter.models.fidelityModels;
+package twentyfive.twentyfiveadapter.dto.fidelityDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "fidelity_card_group")
-public class CardGroup {
+@NoArgsConstructor
+public class CardGroupDto {
 
-    @Id
     private String id;
     private String ownerId;
 
@@ -25,4 +21,5 @@ public class CardGroup {
     private int scanNumber; //number of scan that a card belonging to this group has to do
     private int numberOfDaysForPrize; //number of days a user can wait to claim the prize
     private Boolean isActive;
+    private int associatedCard;
 }
