@@ -29,12 +29,24 @@ public class ProductInPurchase extends ItemInPurchase{
         ProductInPurchase that = (ProductInPurchase) o;
         return Double.compare(that.weight, weight) == 0 &&
                 Objects.equals(shape, that.shape) &&
-                Objects.equals(customization, that.customization) &&
+                listsAreEqual(customization, that.customization) && // Compare customization lists
                 Objects.equals(attachment, that.attachment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getId(), this.weight,this.customization,this.attachment,this.shape);
+        return Objects.hash(super.hashCode(), weight, shape, customization, attachment);
     }
+
+    private boolean listsAreEqual(List<?> list1, List<?> list2) {
+        if (list1 == null && list2 == null) {
+            return true;
+        }
+        if (list1 == null || list2 == null || list1.size() != list2.size()) {
+            return false;
+        }
+        return list1.equals(list2);
+    }
+
+
 }
