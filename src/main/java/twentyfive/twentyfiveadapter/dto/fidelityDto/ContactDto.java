@@ -20,5 +20,6 @@ public class ContactDto {
     private String phoneNumber;
     private Date creationDate;
     private int associatedCards;
-    private int prizes;
+    private int claimedPrizes;
+    private int unclaimedPrizes;
 }
