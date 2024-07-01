@@ -16,6 +16,7 @@ public class BundleInPurchase extends ItemInPurchase {
     private Measure measure;
     private double totalWeight;
     private List<PieceInPurchase> weightedProducts = new ArrayList<>();
+    private List<String> allergenNames; // Utilizzo un enum per gli allergeni, che dovrai definire
 
     // Implementazione di equals e hashCode
     @Override

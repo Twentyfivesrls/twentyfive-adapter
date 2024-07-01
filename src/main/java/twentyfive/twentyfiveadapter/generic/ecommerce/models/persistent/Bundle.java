@@ -17,6 +17,7 @@ public class Bundle {
     private String categoryId;
     private boolean customized; // "standard" or "personalizzato"
     private List<Measure> measures; // Assume Measure è un'altra classe definita altrove e non salvata nel DB
+    private List<String> allergenNames; // Utilizzo un enum per gli allergeni, che dovrai definire
     private String description;
     private boolean active = true; //il prodotto rimane visibile ma disattivato
     private boolean softDeleted = false; //il prodotto è cancellato in modo "soft"
