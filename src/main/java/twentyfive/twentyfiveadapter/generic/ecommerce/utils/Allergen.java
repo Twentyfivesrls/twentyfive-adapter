@@ -13,7 +13,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("allergens")
 public class Allergen {
     private String id;
-    @Indexed(unique = true)
     private String name;
     private String iconUrl; // L'URL dell'icona associata all'allergene
 }
