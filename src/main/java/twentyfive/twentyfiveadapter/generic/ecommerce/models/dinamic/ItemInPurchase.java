@@ -13,4 +13,5 @@ public class ItemInPurchase {
     private int quantity;
     private double totalPrice;
     private String notes;
+    private String location; //Dove viene messo il prodotto?
 }

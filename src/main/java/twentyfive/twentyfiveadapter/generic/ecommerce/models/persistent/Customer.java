@@ -15,6 +15,7 @@ public class Customer {
     private String firstName; // Nome del cliente
     private String lastName; // Cognome del cliente
     private String email; // Email del cliente
+    private String role; // Ruolo preso da Keycloak dell'utente registrato.
     private String phoneNumber; // Numero di telefono del cliente
     private boolean enabled=true; // Se il cliente è abilitato o meno (admin può bloccare cliente)
     private String note; // Note aggiuntive che l'admin può inserire sul cliente

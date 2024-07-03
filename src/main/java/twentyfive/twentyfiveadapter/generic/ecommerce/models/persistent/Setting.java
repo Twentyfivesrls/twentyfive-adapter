@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import twentyfive.twentyfiveadapter.generic.ecommerce.utils.DateRange;
 
+import java.util.List;
+
 
 @Data
 @NoArgsConstructor
@@ -19,4 +21,5 @@ public class Setting {
     private int minCancelOrder; //Tempo minimo cancellazione di un ordine
     private boolean ordersEnabled; // Gestisce il blocco degli ordini
     private boolean orderReceivedAlert; // Gestisce l'alert dell'ordine
+    private List<String> locations; //Lista di luoghi dove poter allocare i prodotti
 }
