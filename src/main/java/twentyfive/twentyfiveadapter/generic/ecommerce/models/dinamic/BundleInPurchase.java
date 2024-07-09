@@ -24,12 +24,26 @@ public class BundleInPurchase extends ItemInPurchase {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equalsSameId(o)) return false; // Check superclass fields (assuming ItemInPurchase has fields to compare)
         BundleInPurchase that = (BundleInPurchase) o;
-        return Double.compare(that.getMeasure().getWeight(), this.measure.getWeight()) == 0 && this.getId().equals(that.getId());
+        return Double.compare(that.getMeasure().getWeight(), this.measure.getWeight()) == 0 &&
+                this.getId().equals(that.getId()) &&
+                listsAreEqual(weightedProducts, that.weightedProducts) &&
+                listsAreEqual(allergens, that.allergens);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getId(), this.measure.getWeight());
+        return Objects.hash(super.hashCodeSameId(), measure,totalWeight,weightedProducts,allergens);
+    }
+
+    private boolean listsAreEqual(List<?> list1, List<?> list2) {
+        if (list1 == null && list2 == null) {
+            return true;
+        }
+        if (list1 == null || list2 == null || list1.size() != list2.size()) {
+            return false;
+        }
+        return list1.equals(list2);
     }
 }

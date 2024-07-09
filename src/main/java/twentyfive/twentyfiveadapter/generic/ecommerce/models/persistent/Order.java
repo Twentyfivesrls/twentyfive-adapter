@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.BundleInPurchase;
+import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.CustomInfo;
 import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.ProductInPurchase;
 import twentyfive.twentyfiveadapter.generic.ecommerce.utils.OrderStatus;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class Order {
     private String id;
     private String customerId;
+    private boolean unread = true; // boolean to check if an order is read or not
     private List<ProductInPurchase> productsInPurchase;
     private List<BundleInPurchase> bundlesInPurchase;
     private LocalDateTime createdDate;
@@ -26,5 +28,6 @@ public class Order {
     private double totalPrice;
     private String note;
     private OrderStatus status; // Assuming OrderStatus is an Enum
+    private CustomInfo customInfo; // admin can choose customInfo for order and not himself from idCustomer
 
 }
