@@ -16,4 +16,5 @@ public class Category {
     private boolean enabled = true;
     private boolean softDeleted = false;
     private int orderPriority; //ordine di visualizzazione
+    private String idSection;
 }
