@@ -22,4 +22,5 @@ public class Setting {
     private boolean ordersEnabled; // Gestisce il blocco degli ordini
     private boolean orderReceivedAlert; // Gestisce l'alert dell'ordine
     private List<String> locations; //Lista di luoghi dove poter allocare i prodotti
+    private List<String> roles; //Lista possibili ruoli dei dipendenti
 }
