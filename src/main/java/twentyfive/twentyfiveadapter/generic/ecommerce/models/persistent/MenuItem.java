@@ -17,4 +17,5 @@ public class MenuItem {
     private double price;
     private List<String> allergenNames;
     private String imageUrl;
+    private boolean active = true; //il prodotto rimane visibile ma disattivato
 }
