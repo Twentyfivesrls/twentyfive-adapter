@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
-import twentyfive.twentyfiveadapter.dto.subscriptionDto.SimpleItem;
 
 import java.util.List;
 
