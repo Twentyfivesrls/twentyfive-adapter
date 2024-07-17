@@ -26,6 +26,7 @@ public class CompletedOrder {
     private LocalDateTime createdDate;
     private double totalPrice;
     private String note;
+    private String paymentId;
     private OrderStatus status; // Assuming OrderStatus is an Enum
     private CustomInfo customInfo; // admin can choose customInfo for order and not himself from idCustomer
 
