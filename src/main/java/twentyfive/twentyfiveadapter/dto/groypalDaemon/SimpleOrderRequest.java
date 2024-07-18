@@ -21,6 +21,7 @@ public class SimpleOrderRequest {
     private String intent = Intent.CAPTURE.name();
     private List<SimpleItem> items;
     private PaypalCredentials paypalCredentials;
+    private boolean dev = false;
 
 
 
