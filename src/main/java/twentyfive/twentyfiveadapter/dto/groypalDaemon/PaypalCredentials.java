@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class PaypalCredentials {
     private String clientId;
     private String clientSecret;
+    private boolean dev = false;
 }
