@@ -3,6 +3,7 @@ package twentyfive.twentyfiveadapter.generic.ecommerce.models.persistent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import twentyfive.twentyfiveadapter.dto.groypalDaemon.PaypalCredentials;
 import twentyfive.twentyfiveadapter.generic.ecommerce.utils.DateRange;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public class Setting {
     private boolean orderReceivedAlert; // Gestisce l'alert dell'ordine
     private List<String> locations; //Lista di luoghi dove poter allocare i prodotti
     private List<String> roles; //Lista possibili ruoli dei dipendenti
+    private PaypalCredentials paypalCredentials;
+    private boolean dev = false;
 }
