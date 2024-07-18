@@ -20,6 +20,7 @@ public class SimpleOrderRequest {
     private String returnUrl;
     private String intent = Intent.CAPTURE.name();
     private List<SimpleItem> items;
+    private PaypalCredentials paypalCredentials;
 
 
 
