@@ -7,7 +7,7 @@ import twentyfive.twentyfiveadapter.dto.subscriptionDto.UserSubscription;
 public class UserSubscriptionExpired extends UserSubscription {
     public UserSubscriptionExpired(UserSubscriptionActive userSubscriptionActive){
         super(userSubscriptionActive.getId(), userSubscriptionActive.getPaymentId(), userSubscriptionActive.getCustomId(),
-                userSubscriptionActive.getUserId(), userSubscriptionActive.getStartDate(),
+                userSubscriptionActive.getIdKeycloak(), userSubscriptionActive.getStartDate(),
                 userSubscriptionActive.getSubscriptionData(), userSubscriptionActive.getDeactivationRanges(), userSubscriptionActive.getReadAt(), userSubscriptionActive.getOrderData(),userSubscriptionActive.getOrderItemData());
     }
 }

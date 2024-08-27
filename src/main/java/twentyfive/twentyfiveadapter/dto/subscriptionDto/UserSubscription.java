@@ -17,9 +17,9 @@ import java.util.List;
 public class UserSubscription {
     @Id
     private String id;
-    private String paymentId; // todo understand if paypal sends string or long
+    private String paymentId;
     private String customId; // ID che collega tutte le classi figlio a UserSubscription
-    private String userId;
+    private String idKeycloak;
     private Date startDate; // todo come mandarcelo?
     private Subscription subscriptionData;
     private List<DateRange> deactivationRanges;
