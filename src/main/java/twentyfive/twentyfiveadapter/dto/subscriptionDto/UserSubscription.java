@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import twentyfive.twentyfiveadapter.dto.kafkaDto.OrderItemData;
 import twentyfive.twentyfiveadapter.models.subscriptionModels.Subscription;
 
 import java.util.Calendar;
@@ -20,15 +21,14 @@ public class UserSubscription {
     private String paymentId;
     private String customId; // ID che collega tutte le classi figlio a UserSubscription
     private String userId;
-    private String idKeycloak;
     private Date startDate; // todo come mandarcelo?
     private Subscription subscriptionData;
     private List<DateRange> deactivationRanges;
     private Date readAt;
     @Transient
     private String orderData;
-    private com.twentyfive.subscription.model.OrderItemData orderItemData;
-
+    private OrderItemData orderItemData;
+    private Price price;
     public boolean isExpired(){
         // all this shit is done to ensure that the subscription expires at least at the end of the day.
         // Basically, user has max 1 day more than the duration as present
