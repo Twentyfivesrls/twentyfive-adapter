@@ -19,8 +19,7 @@ public class UserSubscription {
     @Id
     private String id;
     private String paymentId;
-    private String customId; // ID che collega tutte le classi figlio a UserSubscription
-    private String userId;
+    private String customId; // ID che collega tutte le classi figlio a UserSubscription (Keycloak)
     private Date startDate; // todo come mandarcelo?
     private Subscription subscriptionData;
     private List<DateRange> deactivationRanges;
@@ -28,14 +27,15 @@ public class UserSubscription {
     @Transient
     private String orderData;
     private OrderItemData orderItemData;
-    private Price price;
+    private Price price; //prezzo reale della sottoscrizione (magari scontato)
+    private int duration;
     public boolean isExpired(){
         // all this shit is done to ensure that the subscription expires at least at the end of the day.
         // Basically, user has max 1 day more than the duration as present
         //TODO da testare
         Calendar c = Calendar.getInstance();
         c.setTime(this.startDate);
-        Integer integerValue = Math.toIntExact(this.subscriptionData.getDuration());
+        Integer integerValue = Math.toIntExact(this.duration);
         c.add(Calendar.DATE, integerValue);
         // ignoring ranges that are included in other ranges to skip days that doesn't need to be included
         Integer differencesBetweenRanges = DateRangeUtils.getTotalSuspendedDays(this.deactivationRanges);

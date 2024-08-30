@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import twentyfive.twentyfiveadapter.dto.subscriptionDto.Discount;
+import twentyfive.twentyfiveadapter.dto.subscriptionDto.Frequency;
+import twentyfive.twentyfiveadapter.dto.subscriptionDto.Price;
 
 import java.util.List;
 
@@ -16,10 +19,13 @@ import java.util.List;
 public class Subscription {
     @Id
     private String id;
-    @Indexed(unique = true)
-    private String customId;
+    private String name;
     private List<String> appIds;
-    private String roleName; // Keycloak rolename to add
-    private Long duration; // day duration of the subscription
-    private boolean active;
+    private String description;
+    private String price;
+    private Frequency frequency;
+    private boolean upselling;
+    private Discount discount;
+    private List<String> crossSelling;
+    private boolean active = true;
 }
