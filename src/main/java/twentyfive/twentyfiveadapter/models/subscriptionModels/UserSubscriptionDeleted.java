@@ -15,7 +15,8 @@ import java.util.Date;
 public class UserSubscriptionDeleted extends UserSubscription {
     public UserSubscriptionDeleted(UserSubscriptionActive userSubscriptionActive){
         super(userSubscriptionActive.getId(), userSubscriptionActive.getPaymentId(), userSubscriptionActive.getCustomId(),userSubscriptionActive.getStartDate(),
-                userSubscriptionActive.getSubscriptionData(), userSubscriptionActive.getDeactivationRanges(), userSubscriptionActive.getReadAt(), userSubscriptionActive.getOrderData(),userSubscriptionActive.getOrderItemData(),userSubscriptionActive.getPrice(),userSubscriptionActive.getDuration());
+                userSubscriptionActive.getSubscriptionData(), userSubscriptionActive.getDeactivationRanges(), userSubscriptionActive.getReadAt(), userSubscriptionActive.getOrderData(),userSubscriptionActive.getOrderItemData(),userSubscriptionActive.getPrice(),userSubscriptionActive.getDuration(),
+                userSubscriptionActive.isGifted());
     }
     private Date suspendendTime;
 }
