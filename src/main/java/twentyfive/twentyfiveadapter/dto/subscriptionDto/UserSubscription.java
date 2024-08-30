@@ -19,7 +19,7 @@ public class UserSubscription {
     @Id
     private String id;
     private String paymentId;
-    private String customId; // ID che collega tutte le classi figlio a UserSubscription (Keycloak)
+    private String userId; // ID che collega tutte le classi figlio a UserSubscription (Keycloak)
     private Date startDate; // todo come mandarcelo?
     private Subscription subscriptionData;
     private List<DateRange> deactivationRanges;

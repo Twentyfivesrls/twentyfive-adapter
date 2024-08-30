@@ -14,7 +14,7 @@ import java.util.Date;
 @Document(collection = "user_subscriptions_deleted")
 public class UserSubscriptionDeleted extends UserSubscription {
     public UserSubscriptionDeleted(UserSubscriptionActive userSubscriptionActive){
-        super(userSubscriptionActive.getId(), userSubscriptionActive.getPaymentId(), userSubscriptionActive.getCustomId(),userSubscriptionActive.getStartDate(),
+        super(userSubscriptionActive.getId(), userSubscriptionActive.getPaymentId(), userSubscriptionActive.getUserId(),userSubscriptionActive.getStartDate(),
                 userSubscriptionActive.getSubscriptionData(), userSubscriptionActive.getDeactivationRanges(), userSubscriptionActive.getReadAt(), userSubscriptionActive.getOrderData(),userSubscriptionActive.getOrderItemData(),userSubscriptionActive.getPrice(),userSubscriptionActive.getDuration(),
                 userSubscriptionActive.isGifted());
     }
