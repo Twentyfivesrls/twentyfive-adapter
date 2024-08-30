@@ -17,8 +17,7 @@ public class ThubProfile {
     private String username;
     private String title;
     private String description;
-    private Boolean hasProPic;
-    private String proPicUrl;
+    private String imageName;
     private List<ThubLink> links;
     private ThubCustomTheme customTheme;
 
