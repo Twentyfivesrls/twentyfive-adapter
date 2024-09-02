@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Transient;
 import twentyfive.twentyfiveadapter.dto.kafkaDto.OrderItemData;
 import twentyfive.twentyfiveadapter.models.subscriptionModels.Subscription;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -20,17 +21,17 @@ public class UserSubscription {
     private String id;
     private String paymentId;
     private String userId; // ID che collega tutte le classi figlio a UserSubscription (Keycloak)
-    private Date startDate; // todo come mandarcelo?
+    private LocalDate startDate; // todo come mandarcelo?
     private Subscription subscriptionData;
     private List<DateRange> deactivationRanges;
-    private Date readAt;
+    private LocalDate readAt;
     @Transient
     private String orderData;
     private OrderItemData orderItemData;
     private Price price; //prezzo reale della sottoscrizione (magari scontato)
     private int duration;
     private boolean gifted; //Se glielo abbiamo attivato gratis
-    public boolean isExpired(){
+    /*public boolean isExpired(){
         // all this shit is done to ensure that the subscription expires at least at the end of the day.
         // Basically, user has max 1 day more than the duration as present
         //TODO da testare
@@ -48,4 +49,6 @@ public class UserSubscription {
         today = c.getTime();
         return today.after(expiringDate);
     }
+
+     */
 }
