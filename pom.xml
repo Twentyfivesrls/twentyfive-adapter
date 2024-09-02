@@ -11,7 +11,7 @@
 
     <groupId>com.twentyfive</groupId>
     <artifactId>twentyfive-adapters</artifactId>
-    <version>0.0.184</version>
+    <version>0.0.185</version>
     <packaging>jar</packaging>
 
     <distributionManagement>
