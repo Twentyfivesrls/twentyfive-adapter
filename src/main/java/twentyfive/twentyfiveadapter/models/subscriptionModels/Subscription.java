@@ -11,6 +11,7 @@ import twentyfive.twentyfiveadapter.dto.subscriptionDto.Frequency;
 import twentyfive.twentyfiveadapter.dto.subscriptionDto.Price;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Document
 @Data
@@ -28,4 +29,14 @@ public class Subscription {
     private Discount discount;
     private List<String> crossSelling;
     private boolean active = true;
+
+    private String getType(){
+        if(this.appIds.size()>1){
+            return "Pack";
+        } else if (this.appIds.size()==1){
+            return "Single";
+        } else {
+            return "No app linked";
+        }
+    }
 }
