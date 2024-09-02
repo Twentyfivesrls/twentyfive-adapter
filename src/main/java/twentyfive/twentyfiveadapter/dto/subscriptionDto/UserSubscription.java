@@ -31,6 +31,10 @@ public class UserSubscription {
     private Price price; //prezzo reale della sottoscrizione (magari scontato)
     private int duration;
     private boolean gifted; //Se glielo abbiamo attivato gratis
+
+    public LocalDate getExpireDate(){
+        return this.startDate.plusDays(this.subscriptionData.getFrequency().getDays()).plusMonths(this.subscriptionData.getFrequency().getMonths());
+    }
     /*public boolean isExpired(){
         // all this shit is done to ensure that the subscription expires at least at the end of the day.
         // Basically, user has max 1 day more than the duration as present
