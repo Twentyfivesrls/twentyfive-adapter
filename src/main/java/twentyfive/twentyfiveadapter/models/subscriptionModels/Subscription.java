@@ -8,10 +8,8 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import twentyfive.twentyfiveadapter.dto.subscriptionDto.Discount;
 import twentyfive.twentyfiveadapter.dto.subscriptionDto.Frequency;
-import twentyfive.twentyfiveadapter.dto.subscriptionDto.Price;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Document
 @Data
@@ -30,7 +28,7 @@ public class Subscription {
     private List<String> crossSelling;
     private boolean active = true;
 
-    private String getType(){
+    public String getType(){
         if(this.appIds.size()>1){
             return "Pack";
         } else if (this.appIds.size()==1){
@@ -39,4 +37,5 @@ public class Subscription {
             return "No app linked";
         }
     }
+
 }
