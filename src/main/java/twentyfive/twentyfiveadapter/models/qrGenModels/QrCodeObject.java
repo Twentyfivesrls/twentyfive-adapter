@@ -31,4 +31,5 @@ public class QrCodeObject {
     private String wifiSSID;
     private String wifiPassword;
     private String wifiEncryption;
+    private boolean wifiHidden;
 }
