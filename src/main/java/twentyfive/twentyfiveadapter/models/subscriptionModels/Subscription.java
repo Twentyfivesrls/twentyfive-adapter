@@ -22,6 +22,7 @@ public class Subscription {
     private List<String> appIds;
     private String description;
     private String price;
+    private String imgUrl;
     private Frequency frequency;
     private boolean upselling;
     private Discount discount;
