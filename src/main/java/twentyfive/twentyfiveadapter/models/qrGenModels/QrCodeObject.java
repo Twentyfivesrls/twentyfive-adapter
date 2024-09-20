@@ -23,6 +23,8 @@ public class QrCodeObject {
     private String type;
     private String simpleText;
     private String phoneNumber;
+    private String whatsappNumber;
+    private String whatsappMessage;
     private String emailTo;
     private String emailSubject;
     private String emailBody;
