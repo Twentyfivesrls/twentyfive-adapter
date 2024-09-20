@@ -14,4 +14,8 @@ public enum OrderStatus {
     COMPLETO("Completo");
 
     private String status;
+
+    public static OrderStatus[] getStatusEditable(){
+        return new OrderStatus[] {PRONTO,ANNULLATO,COMPLETO};
+    }
 }
