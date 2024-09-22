@@ -15,7 +15,5 @@ public class BPFile {
     private String id;
     private String employeeId;
     private String filename;
-    private String fileUrl;
-    private String fileType;
     private LocalDateTime uploadDate;
 }
