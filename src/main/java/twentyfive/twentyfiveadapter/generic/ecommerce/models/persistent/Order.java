@@ -28,7 +28,6 @@ public class Order {
     private double totalPrice;
     private String note;
     private String paymentId;
-    private String captureId;
     private OrderStatus status; // Assuming OrderStatus is an Enum
     private CustomInfo customInfo; // admin can choose customInfo for order and not himself from idCustomer
 
