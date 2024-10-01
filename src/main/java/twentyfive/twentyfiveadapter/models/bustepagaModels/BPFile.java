@@ -15,5 +15,6 @@ public class BPFile {
     private String id;
     private String employeeId;
     private String filename;
+    private String emailText; //text sent to employee in email with the file attached
     private LocalDateTime uploadDate;
 }
