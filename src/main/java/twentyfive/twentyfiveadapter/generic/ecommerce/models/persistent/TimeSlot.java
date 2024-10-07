@@ -75,16 +75,32 @@ public class TimeSlot {
     private boolean checkForHoles(Map<LocalTime, Integer> hoursMap, LocalTime time, int numSlotsRequired) {
         int slotsCount = 0;
         NavigableMap<LocalTime, Integer> navigableMap = new TreeMap<>(hoursMap);
-        NavigableMap<LocalTime, Integer> subMap = navigableMap.headMap(time, true);
 
-        for (Map.Entry<LocalTime, Integer> subEntry : subMap.descendingMap().entrySet()) {
-            slotsCount += subEntry.getValue();
+        // Filtro per considerare solo orari successivi a 'time'
+        NavigableMap<LocalTime, Integer> subMap = navigableMap.tailMap(time, true);
+
+        LocalTime now = LocalTime.now();  // Ora corrente
+
+        Iterator<Map.Entry<LocalTime, Integer>> iterator = subMap.entrySet().iterator();
+
+        // Iteriamo sugli orari disponibili
+        while (iterator.hasNext()) {
+            Map.Entry<LocalTime, Integer> subEntry = iterator.next();
+            LocalTime slotTime = subEntry.getKey();
+
+            // Controlla se l'orario è successivo all'ora corrente, ignorando l'intera ora corrente
+            if (slotTime.isAfter(now.withMinute(0).withSecond(0).withNano(0))) {
+                slotsCount += subEntry.getValue();
+            }
+
             if (slotsCount >= numSlotsRequired) {
-                return true;
+                return true; // Abbiamo trovato abbastanza slot
             }
         }
-        return false;
+
+        return false; // Non ci sono abbastanza slot
     }
+
 
     public boolean reserveTimeSlots(LocalDateTime pickupDate, int numSlots) {
         LocalDate date = pickupDate.toLocalDate();
