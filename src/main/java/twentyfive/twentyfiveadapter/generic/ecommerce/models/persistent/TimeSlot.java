@@ -36,15 +36,28 @@ public class TimeSlot {
      */
     public Map<LocalDate, List<LocalTime>> findTimeForNumSlots(LocalDateTime startingDate, int numSlotsRequired) {
         Map<LocalDate, List<LocalTime>> result = new HashMap<>();
+        LocalTime now = LocalTime.now();  // Ora corrente
 
-        //per ogni giorno successivo a starting date faccio processDay per prendermi le ore di quel giorno che sono valide
-        //per effettuare quell'ordine di n slot
-        numSlotsMap.entrySet().stream()
-                .filter(dayEntry -> !dayEntry.getKey().isBefore(startingDate.toLocalDate()))
-                .forEach(dayEntry -> processDay(dayEntry, startingDate, numSlotsRequired, result));
+        this.numSlotsMap.entrySet().stream()
+                .filter(dayEntry -> !dayEntry.getKey().isBefore(startingDate.toLocalDate()))  // Considera solo le date future o uguali alla data di partenza
+                .forEach(dayEntry -> {
+                    // Se la data è oggi, ignoriamo gli orari passati
+                    if (dayEntry.getKey().isEqual(startingDate.toLocalDate())) {
+                        // Filtra gli orari per escludere quelli passati nel giorno corrente
+                        Map<LocalTime, Integer> filteredSlots = new TreeMap<>(dayEntry.getValue())
+                                .tailMap(now.withMinute(0).withSecond(0).withNano(0), false);  // Ignora l'orario corrente e quelli precedenti
+                        if (!filteredSlots.isEmpty()) {
+                            this.processDay(Map.entry(dayEntry.getKey(), filteredSlots), startingDate, numSlotsRequired, result);
+                        }
+                    } else {
+                        // Per le altre date future, non serve fare alcun filtro sugli orari
+                        this.processDay(dayEntry, startingDate, numSlotsRequired, result);
+                    }
+                });
 
         return result;
     }
+
 
     private void processDay(Map.Entry<LocalDate, Map<LocalTime, Integer>> dayEntry, LocalDateTime startingDate, int numSlotsRequired, Map<LocalDate, List<LocalTime>> result) {
         LocalDate date = dayEntry.getKey();
@@ -104,33 +117,46 @@ public class TimeSlot {
 
     public boolean reserveTimeSlots(LocalDateTime pickupDate, int numSlots) {
         LocalDate date = pickupDate.toLocalDate();
-        Map<LocalTime, Integer> dailySlots = numSlotsMap.get(date);
+        Map<LocalTime, Integer> dailySlots = this.numSlotsMap.get(date);
+
         if (dailySlots == null) {
-            return false; // No slots available for this day
-        }
-        LocalTime time= pickupDate.toLocalTime();
+            return false;
+        } else {
+            LocalTime time = pickupDate.toLocalTime();
+            LocalTime now = LocalTime.now();
 
-        if (checkForHoles(dailySlots, time, numSlots)) {
-            int slotsToReserve = numSlots;
-            // Reversed subMap to prioritize earlier times for slot deduction
-            NavigableMap<LocalTime, Integer> subMap = new TreeMap<>(dailySlots).headMap(time, true).descendingMap();
-
-            for (Map.Entry<LocalTime, Integer> entry : subMap.entrySet()) {
-                int availableSlots = entry.getValue();
-                if (slotsToReserve > 0 && availableSlots > 0) {
-                    int slotsDeducted = Math.min(availableSlots, slotsToReserve);
-                    dailySlots.put(entry.getKey(), availableSlots - slotsDeducted);
-                    slotsToReserve -= slotsDeducted;
-                }
-                if (slotsToReserve <= 0) {
-                    break;
-                }
+            // Controllo per evitare di prenotare slot passati (escludiamo orari precedenti o uguali all'ora corrente)
+            if (date.equals(LocalDate.now()) && time.isBefore(now.withMinute(0).withSecond(0).withNano(0))) {
+                return false;  // Non è possibile prenotare in orari già passati
             }
-            return true;
-        }
 
-        return false;
+            if (!this.checkForHoles(dailySlots, time, numSlots)) {
+                return false;
+            } else {
+                int slotsToReserve = numSlots;
+                NavigableMap<LocalTime, Integer> subMap = (new TreeMap<>(dailySlots)).headMap(time, true).descendingMap();
+                Iterator<Map.Entry<LocalTime, Integer>> iterator = subMap.entrySet().iterator();
+
+                while (iterator.hasNext()) {
+                    Map.Entry<LocalTime, Integer> entry = iterator.next();
+                    int availableSlots = entry.getValue();
+
+                    if (slotsToReserve > 0 && availableSlots > 0) {
+                        int slotsDeducted = Math.min(availableSlots, slotsToReserve);
+                        dailySlots.put(entry.getKey(), availableSlots - slotsDeducted);
+                        slotsToReserve -= slotsDeducted;
+                    }
+
+                    if (slotsToReserve <= 0) {
+                        break;
+                    }
+                }
+
+                return true;
+            }
+        }
     }
+
 
     public boolean freeNumSlot(LocalDateTime selectedDate, int numSlots, Map<LocalTime, Integer> maxPerHour) {
         LocalDate date = selectedDate.toLocalDate();
