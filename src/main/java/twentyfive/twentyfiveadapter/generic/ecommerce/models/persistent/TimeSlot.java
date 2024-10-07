@@ -37,70 +37,55 @@ public class TimeSlot {
      */
     public Map<LocalDate, List<LocalTime>> findTimeForNumSlots(LocalDateTime startingDate, int numSlotsRequired) {
         Map<LocalDate, List<LocalTime>> result = new HashMap<>();
-        LocalTime now = LocalTime.now();  // Ora corrente
+        boolean[] firstSlotFound = {false};  // Flag per indicare se abbiamo trovato il primo orario valido
 
+        // Itera su tutte le date e verifica se esistono orari validi
         this.numSlotsMap.entrySet().stream()
-                .filter(dayEntry -> !dayEntry.getKey().isBefore(startingDate.toLocalDate()))  // Considera solo le date future o uguali alla data di partenza
-                .forEach(dayEntry -> {
-                    LocalDate currentDate = dayEntry.getKey();
-                    Map<LocalTime, Integer> hoursMap = dayEntry.getValue();
-
-                    // Se la data è oggi, ignoriamo gli orari passati
-                    if (currentDate.isEqual(startingDate.toLocalDate())) {
-                        // Filtra gli orari per escludere quelli passati nel giorno corrente
-                        Map<LocalTime, Integer> filteredSlots = new TreeMap<>(hoursMap)
-                                .tailMap(now.withMinute(0).withSecond(0).withNano(0), false);  // Ignora l'orario corrente e quelli precedenti
-
-                        // Verifica slot disponibili e verifica con checkForHoles
-                        Map<LocalTime, Integer> validSlots = filteredSlots.entrySet().stream()
-                                .filter(entry -> entry.getValue() >= numSlotsRequired || checkForHoles(hoursMap, entry.getKey(), numSlotsRequired))
-                                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, TreeMap::new));
-
-                        if (!validSlots.isEmpty()) {
-                            this.processDay(Map.entry(currentDate, validSlots), startingDate, numSlotsRequired, result);
-                        }
-                    } else {
-                        // Per le altre date future, verifica con checkForHoles
-                        Map<LocalTime, Integer> validSlots = hoursMap.entrySet().stream()
-                                .filter(entry -> entry.getValue() >= numSlotsRequired || checkForHoles(hoursMap, entry.getKey(), numSlotsRequired))
-                                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, TreeMap::new));
-
-                        if (!validSlots.isEmpty()) {
-                            this.processDay(Map.entry(currentDate, validSlots), startingDate, numSlotsRequired, result);
-                        }
-                    }
-                });
+                .filter(dayEntry -> !dayEntry.getKey().isBefore(startingDate.toLocalDate()))  // Considera solo le date uguali o successive
+                .forEach(dayEntry -> processDay(dayEntry, startingDate, numSlotsRequired, result, firstSlotFound));
 
         return result;
     }
 
-
-
-    private void processDay(Map.Entry<LocalDate, Map<LocalTime, Integer>> dayEntry, LocalDateTime startingDate, int numSlotsRequired, Map<LocalDate, List<LocalTime>> result) {
+    private void processDay(Map.Entry<LocalDate, Map<LocalTime, Integer>> dayEntry, LocalDateTime startingDate, int numSlotsRequired, Map<LocalDate, List<LocalTime>> result, boolean[] firstSlotFound) {
         LocalDate date = dayEntry.getKey();
         List<LocalTime> dayResult = new ArrayList<>();
 
-        //per ogni ora lavorativa in quel giorni faccio evaluateHour per vedere se quell'ora va bene per quell'ordine di n slot
+        // Iteriamo su ogni orario di quella data
         dayEntry.getValue().entrySet().stream()
-                .filter(hourEntry -> !date.atTime(hourEntry.getKey()).isBefore(startingDate))
-                .forEach(hourEntry -> evaluateTime(dayEntry.getValue(), hourEntry, numSlotsRequired, dayResult));
+                .filter(hourEntry -> !date.atTime(hourEntry.getKey()).isBefore(startingDate))  // Considera solo orari dopo il startingDate
+                .forEach(hourEntry -> {
+                    if (!firstSlotFound[0]) {
+                        evaluateTime(dayEntry.getValue(), hourEntry, numSlotsRequired, dayResult);
+                        if (!dayResult.isEmpty()) {
+                            firstSlotFound[0] = true;  // Segnala che abbiamo trovato il primo slot utile
+                        }
+                    } else {
+                        // Dopo aver trovato il primo orario utile, continuiamo a processare quelli successivi
+                        evaluateTime(dayEntry.getValue(), hourEntry, numSlotsRequired, dayResult);
+                    }
+                });
 
         if (!dayResult.isEmpty()) {
-            result.put(date, dayResult);
+            result.put(date, dayResult);  // Aggiungi il risultato se ci sono orari validi
         }
     }
 
+
+
     private void evaluateTime(Map<LocalTime, Integer> hoursMap, Map.Entry<LocalTime, Integer> hourEntry, int numSlotsRequired, List<LocalTime> dayResult) {
-        //l'ora va bene se o ci sono abbastanza slot, oppure, guardando alle ore precedenti di quel giorno ho abbastanza buchi per
-        //ricoprire il numero di slot richiesto dall'ordine
+        // Se ci sono abbastanza slot in questo orario, lo aggiungiamo subito
         if (hourEntry.getValue() >= numSlotsRequired) {
             dayResult.add(hourEntry.getKey());
         } else {
-            if (checkForHoles(hoursMap, hourEntry.getKey(), numSlotsRequired)) {
+            // Se non ci sono abbastanza slot, verifichiamo se combinando slot precedenti soddisfiamo la richiesta
+            boolean enoughSlots = checkForHoles(hoursMap, hourEntry.getKey(), numSlotsRequired);
+            if (enoughSlots) {
                 dayResult.add(hourEntry.getKey());
             }
         }
     }
+
 
     private boolean checkForHoles(Map<LocalTime, Integer> hoursMap, LocalTime time, int numSlotsRequired) {
         int slotsCount = 0;
