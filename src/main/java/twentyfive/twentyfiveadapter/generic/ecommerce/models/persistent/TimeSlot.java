@@ -112,15 +112,17 @@ public class TimeSlot {
 
         // Iteriamo sugli orari precedenti (in ordine decrescente)
         for (Map.Entry<LocalTime, Integer> subEntry : precedingMap.descendingMap().entrySet()) {
-            slotsCount += subEntry.getValue();
+            slotsCount += subEntry.getValue();  // Somma slot disponibili
+
             if (slotsCount >= numSlotsRequired) {
-                return true;  // Abbiamo trovato abbastanza slot
+                return true;  // Abbiamo trovato abbastanza slot, anche se esattamente uguali al numero richiesto
             }
         }
 
         // Se non abbiamo ancora abbastanza slot, verifichiamo quelli successivi
         for (Map.Entry<LocalTime, Integer> subEntry : followingMap.entrySet()) {
-            slotsCount += subEntry.getValue();
+            slotsCount += subEntry.getValue();  // Somma slot disponibili
+
             if (slotsCount >= numSlotsRequired) {
                 return true;  // Abbiamo trovato abbastanza slot combinando slot precedenti e successivi
             }
@@ -128,6 +130,7 @@ public class TimeSlot {
 
         return false;  // Non ci sono abbastanza slot
     }
+
 
 
 
