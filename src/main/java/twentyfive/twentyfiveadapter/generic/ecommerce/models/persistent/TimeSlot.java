@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Data
 public class TimeSlot {
@@ -41,22 +42,38 @@ public class TimeSlot {
         this.numSlotsMap.entrySet().stream()
                 .filter(dayEntry -> !dayEntry.getKey().isBefore(startingDate.toLocalDate()))  // Considera solo le date future o uguali alla data di partenza
                 .forEach(dayEntry -> {
+                    LocalDate currentDate = dayEntry.getKey();
+                    Map<LocalTime, Integer> hoursMap = dayEntry.getValue();
+
                     // Se la data è oggi, ignoriamo gli orari passati
-                    if (dayEntry.getKey().isEqual(startingDate.toLocalDate())) {
+                    if (currentDate.isEqual(startingDate.toLocalDate())) {
                         // Filtra gli orari per escludere quelli passati nel giorno corrente
-                        Map<LocalTime, Integer> filteredSlots = new TreeMap<>(dayEntry.getValue())
+                        Map<LocalTime, Integer> filteredSlots = new TreeMap<>(hoursMap)
                                 .tailMap(now.withMinute(0).withSecond(0).withNano(0), false);  // Ignora l'orario corrente e quelli precedenti
-                        if (!filteredSlots.isEmpty()) {
-                            this.processDay(Map.entry(dayEntry.getKey(), filteredSlots), startingDate, numSlotsRequired, result);
+
+                        // Verifica slot disponibili e verifica con checkForHoles
+                        Map<LocalTime, Integer> validSlots = filteredSlots.entrySet().stream()
+                                .filter(entry -> entry.getValue() >= numSlotsRequired || checkForHoles(hoursMap, entry.getKey(), numSlotsRequired))
+                                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, TreeMap::new));
+
+                        if (!validSlots.isEmpty()) {
+                            this.processDay(Map.entry(currentDate, validSlots), startingDate, numSlotsRequired, result);
                         }
                     } else {
-                        // Per le altre date future, non serve fare alcun filtro sugli orari
-                        this.processDay(dayEntry, startingDate, numSlotsRequired, result);
+                        // Per le altre date future, verifica con checkForHoles
+                        Map<LocalTime, Integer> validSlots = hoursMap.entrySet().stream()
+                                .filter(entry -> entry.getValue() >= numSlotsRequired || checkForHoles(hoursMap, entry.getKey(), numSlotsRequired))
+                                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, TreeMap::new));
+
+                        if (!validSlots.isEmpty()) {
+                            this.processDay(Map.entry(currentDate, validSlots), startingDate, numSlotsRequired, result);
+                        }
                     }
                 });
 
         return result;
     }
+
 
 
     private void processDay(Map.Entry<LocalDate, Map<LocalTime, Integer>> dayEntry, LocalDateTime startingDate, int numSlotsRequired, Map<LocalDate, List<LocalTime>> result) {
@@ -89,30 +106,24 @@ public class TimeSlot {
         int slotsCount = 0;
         NavigableMap<LocalTime, Integer> navigableMap = new TreeMap<>(hoursMap);
 
-        // Filtro per considerare solo orari successivi a 'time'
-        NavigableMap<LocalTime, Integer> subMap = navigableMap.tailMap(time, true);
+        // Filtro per considerare solo gli slot fino all'ora corrente della stessa giornata
+        NavigableMap<LocalTime, Integer> subMap = navigableMap.headMap(time, true);
 
-        LocalTime now = LocalTime.now();  // Ora corrente
-
-        Iterator<Map.Entry<LocalTime, Integer>> iterator = subMap.entrySet().iterator();
-
-        // Iteriamo sugli orari disponibili
-        while (iterator.hasNext()) {
-            Map.Entry<LocalTime, Integer> subEntry = iterator.next();
+        // Iteriamo sugli orari disponibili solo per la stessa giornata
+        for (Map.Entry<LocalTime, Integer> subEntry : subMap.descendingMap().entrySet()) {
             LocalTime slotTime = subEntry.getKey();
 
-            // Controlla se l'orario è successivo all'ora corrente, ignorando l'intera ora corrente
-            if (slotTime.isAfter(now.withMinute(0).withSecond(0).withNano(0))) {
-                slotsCount += subEntry.getValue();
-            }
+            slotsCount += subEntry.getValue();
 
+            // Verifica se abbiamo abbastanza slot cumulati
             if (slotsCount >= numSlotsRequired) {
-                return true; // Abbiamo trovato abbastanza slot
+                return true;
             }
         }
 
-        return false; // Non ci sono abbastanza slot
+        return false; // Non ci sono abbastanza slot per soddisfare il numero richiesto
     }
+
 
 
     public boolean reserveTimeSlots(LocalDateTime pickupDate, int numSlots) {
