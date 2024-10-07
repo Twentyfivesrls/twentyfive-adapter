@@ -42,38 +42,28 @@ public class TimeSlot {
         this.numSlotsMap.entrySet().stream()
                 .filter(dayEntry -> !dayEntry.getKey().isBefore(startingDate.toLocalDate()))  // Considera solo le date future o uguali alla data di partenza
                 .forEach(dayEntry -> {
-                    LocalDate currentDate = dayEntry.getKey();
-                    Map<LocalTime, Integer> hoursMap = dayEntry.getValue();
-
                     // Se la data è oggi, ignoriamo gli orari passati
-                    if (currentDate.isEqual(startingDate.toLocalDate())) {
+                    if (dayEntry.getKey().isEqual(startingDate.toLocalDate())) {
                         // Filtra gli orari per escludere quelli passati nel giorno corrente
-                        Map<LocalTime, Integer> filteredSlots = new TreeMap<>(hoursMap)
+                        Map<LocalTime, Integer> filteredSlots = new TreeMap<>(dayEntry.getValue())
                                 .tailMap(now.withMinute(0).withSecond(0).withNano(0), false);  // Ignora l'orario corrente e quelli precedenti
 
-                        // Verifica slot disponibili e verifica con checkForHoles
+                        // Verifica se ci sono slot sufficienti prima di procedere
                         Map<LocalTime, Integer> validSlots = filteredSlots.entrySet().stream()
-                                .filter(entry -> entry.getValue() >= numSlotsRequired || checkForHoles(hoursMap, entry.getKey(), numSlotsRequired))
+                                .filter(entry -> entry.getValue() >= numSlotsRequired || checkForHoles(dayEntry.getValue(), entry.getKey(), numSlotsRequired))
                                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, TreeMap::new));
 
                         if (!validSlots.isEmpty()) {
-                            this.processDay(Map.entry(currentDate, validSlots), startingDate, numSlotsRequired, result);
+                            this.processDay(Map.entry(dayEntry.getKey(), validSlots), startingDate, numSlotsRequired, result);
                         }
                     } else {
-                        // Per le altre date future, verifica con checkForHoles
-                        Map<LocalTime, Integer> validSlots = hoursMap.entrySet().stream()
-                                .filter(entry -> entry.getValue() >= numSlotsRequired || checkForHoles(hoursMap, entry.getKey(), numSlotsRequired))
-                                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, TreeMap::new));
-
-                        if (!validSlots.isEmpty()) {
-                            this.processDay(Map.entry(currentDate, validSlots), startingDate, numSlotsRequired, result);
-                        }
+                        // Per le altre date future, non serve fare alcun filtro sugli orari
+                        this.processDay(dayEntry, startingDate, numSlotsRequired, result);
                     }
                 });
 
         return result;
     }
-
 
 
     private void processDay(Map.Entry<LocalDate, Map<LocalTime, Integer>> dayEntry, LocalDateTime startingDate, int numSlotsRequired, Map<LocalDate, List<LocalTime>> result) {
@@ -106,23 +96,20 @@ public class TimeSlot {
         int slotsCount = 0;
         NavigableMap<LocalTime, Integer> navigableMap = new TreeMap<>(hoursMap);
 
-        // Filtro per considerare solo gli slot fino all'ora corrente della stessa giornata
-        NavigableMap<LocalTime, Integer> subMap = navigableMap.headMap(time, true);
+        // Considera gli orari successivi e inclusi
+        NavigableMap<LocalTime, Integer> subMap = navigableMap.tailMap(time, true);
 
-        // Iteriamo sugli orari disponibili solo per la stessa giornata
-        for (Map.Entry<LocalTime, Integer> subEntry : subMap.descendingMap().entrySet()) {
-            LocalTime slotTime = subEntry.getKey();
-
+        for (Map.Entry<LocalTime, Integer> subEntry : subMap.entrySet()) {
             slotsCount += subEntry.getValue();
 
-            // Verifica se abbiamo abbastanza slot cumulati
             if (slotsCount >= numSlotsRequired) {
-                return true;
+                return true;  // Abbiamo trovato abbastanza slot
             }
         }
 
-        return false; // Non ci sono abbastanza slot per soddisfare il numero richiesto
+        return false;  // Non ci sono abbastanza slot
     }
+
 
 
 
