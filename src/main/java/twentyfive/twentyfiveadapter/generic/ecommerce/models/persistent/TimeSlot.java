@@ -106,19 +106,29 @@ public class TimeSlot {
         int slotsCount = 0;
         NavigableMap<LocalTime, Integer> navigableMap = new TreeMap<>(hoursMap);
 
-        // Filtro per considerare solo orari precedenti e inclusivi all'ora specificata
-        NavigableMap<LocalTime, Integer> subMap = navigableMap.headMap(time, true);  // Considera gli orari precedenti e inclusivi
+        // Considera tutti gli orari (sia precedenti che successivi) rispetto all'ora passata come parametro
+        NavigableMap<LocalTime, Integer> precedingMap = navigableMap.headMap(time, true);  // Slot precedenti o uguali all'ora specificata
+        NavigableMap<LocalTime, Integer> followingMap = navigableMap.tailMap(time, false);  // Slot successivi all'ora specificata
 
-        for (Map.Entry<LocalTime, Integer> subEntry : subMap.descendingMap().entrySet()) {  // Itera al contrario, dagli orari più vicini a quelli precedenti
-            slotsCount += subEntry.getValue();  // Accumula gli slot disponibili
-
+        // Iteriamo sugli orari precedenti (in ordine decrescente)
+        for (Map.Entry<LocalTime, Integer> subEntry : precedingMap.descendingMap().entrySet()) {
+            slotsCount += subEntry.getValue();
             if (slotsCount >= numSlotsRequired) {
                 return true;  // Abbiamo trovato abbastanza slot
             }
         }
 
+        // Se non abbiamo ancora abbastanza slot, verifichiamo quelli successivi
+        for (Map.Entry<LocalTime, Integer> subEntry : followingMap.entrySet()) {
+            slotsCount += subEntry.getValue();
+            if (slotsCount >= numSlotsRequired) {
+                return true;  // Abbiamo trovato abbastanza slot combinando slot precedenti e successivi
+            }
+        }
+
         return false;  // Non ci sono abbastanza slot
     }
+
 
 
     public boolean reserveTimeSlots(LocalDateTime pickupDate, int numSlots) {
