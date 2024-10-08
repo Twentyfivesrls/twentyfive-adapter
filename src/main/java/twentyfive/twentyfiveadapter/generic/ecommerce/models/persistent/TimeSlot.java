@@ -94,8 +94,17 @@ public class TimeSlot {
         // Considera solo gli orari precedenti o uguali all'ora specificata
         NavigableMap<LocalTime, Integer> precedingMap = navigableMap.headMap(time, true);  // Include gli orari fino a 'time'
 
+        LocalTime now = LocalTime.now();  // Ora corrente
+
         // Iteriamo sugli orari precedenti (in ordine decrescente)
         for (Map.Entry<LocalTime, Integer> subEntry : precedingMap.descendingMap().entrySet()) {
+            LocalTime slotTime = subEntry.getKey();
+
+            // Escludiamo gli orari antecedenti all'orario corrente
+            if (slotTime.isBefore(now)) {
+                continue;  // Ignora gli slot passati
+            }
+
             int availableSlots = subEntry.getValue();
 
             // Escludiamo gli orari che hanno 0 slot disponibili
@@ -111,6 +120,7 @@ public class TimeSlot {
 
         return false;  // Non ci sono abbastanza slot
     }
+
 
 
 
