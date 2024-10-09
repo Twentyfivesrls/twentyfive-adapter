@@ -94,17 +94,8 @@ public class TimeSlot {
         // Considera solo gli orari precedenti o uguali all'ora specificata
         NavigableMap<LocalTime, Integer> precedingMap = navigableMap.headMap(time, true);  // Include gli orari fino a 'time'
 
-        LocalTime now = LocalTime.now();  // Ora corrente
-
         // Iteriamo sugli orari precedenti (in ordine decrescente)
         for (Map.Entry<LocalTime, Integer> subEntry : precedingMap.descendingMap().entrySet()) {
-            LocalTime slotTime = subEntry.getKey();
-
-            // Escludiamo gli orari antecedenti all'orario corrente
-            if (slotTime.isBefore(now)) {
-                continue;  // Ignora gli slot passati
-            }
-
             int availableSlots = subEntry.getValue();
 
             // Escludiamo gli orari che hanno 0 slot disponibili
@@ -130,25 +121,33 @@ public class TimeSlot {
         Map<LocalTime, Integer> dailySlots = this.numSlotsMap.get(date);
 
         if (dailySlots == null) {
-            return false;
+            return false; // Se non ci sono slot disponibili per la data selezionata
         } else {
             LocalTime time = pickupDate.toLocalTime();
             LocalTime now = LocalTime.now();
 
-            // Controllo per evitare di prenotare slot passati (escludiamo orari precedenti o uguali all'ora corrente)
-            if (date.equals(LocalDate.now()) && time.isBefore(now.withMinute(0).withSecond(0).withNano(0))) {
-                return false;  // Non è possibile prenotare in orari già passati
+            // Controllo per evitare di prenotare slot passati solo se la data è oggi
+            if (date.equals(LocalDate.now())) {
+                // Se l'orario di pickup è uguale o successivo all'ora corrente
+                if (time.isBefore(now.withMinute(0).withSecond(0).withNano(0))) {
+                    return false;  // Non è possibile prenotare in orari già passati
+                }
+
+                // Filtriamo per considerare solo gli slot fino all'orario scelto e dopo l'orario attuale
+                dailySlots = dailySlots.entrySet().stream()
+                        .filter(entry -> entry.getKey().isAfter(now) || entry.getKey().equals(now))
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, TreeMap::new));
             }
 
+            // Controlliamo se ci sono abbastanza slot disponibili, considerando solo gli slot precedenti o uguali
             if (!this.checkForHoles(dailySlots, time, numSlots)) {
                 return false;
             } else {
                 int slotsToReserve = numSlots;
-                NavigableMap<LocalTime, Integer> subMap = (new TreeMap<>(dailySlots)).headMap(time, true).descendingMap();
-                Iterator<Map.Entry<LocalTime, Integer>> iterator = subMap.entrySet().iterator();
 
-                while (iterator.hasNext()) {
-                    Map.Entry<LocalTime, Integer> entry = iterator.next();
+                // Usare headMap per considerare solo gli orari precedenti o uguali al pickup time
+                NavigableMap<LocalTime, Integer> subMap = new TreeMap<>(dailySlots).headMap(time, true).descendingMap();
+                for (Map.Entry<LocalTime, Integer> entry : subMap.entrySet()) {
                     int availableSlots = entry.getValue();
 
                     if (slotsToReserve > 0 && availableSlots > 0) {
@@ -158,14 +157,16 @@ public class TimeSlot {
                     }
 
                     if (slotsToReserve <= 0) {
-                        break;
+                        break;  // Abbiamo prenotato tutti gli slot necessari
                     }
                 }
 
-                return true;
+                // Se abbiamo prenotato con successo tutti gli slot
+                return slotsToReserve == 0;
             }
         }
     }
+
 
 
     public boolean freeNumSlot(LocalDateTime selectedDate, int numSlots, Map<LocalTime, Integer> maxPerHour) {
