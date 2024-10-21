@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductFixed {
+public class ProductFixed extends Product{
     private double price; // Prezzo fisso
     private double weight; // Peso fisso
 }
