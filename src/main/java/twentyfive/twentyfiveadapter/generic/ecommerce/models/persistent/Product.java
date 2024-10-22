@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -14,6 +15,7 @@ public abstract class Product {
     private String id;
     private String name;
     private List<String> ingredientIds;
+    private Map<Map<String,List<String>>,Double> possibleCustomizations;
     private String description;
     private String categoryId;
     private String imageUrl;
