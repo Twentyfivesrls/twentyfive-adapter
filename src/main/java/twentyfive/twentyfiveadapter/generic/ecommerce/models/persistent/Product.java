@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
+import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.CustomizableIngredient;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,7 @@ public abstract class Product {
     private String id;
     private String name;
     private List<String> ingredientIds;
-    private Map<Map<String,List<String>>,Double> possibleCustomizations;
+    private List<CustomizableIngredient> possibleCustomizations;
     private String description;
     private String categoryId;
     private String imageUrl;
