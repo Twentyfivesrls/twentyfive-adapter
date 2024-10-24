@@ -20,6 +20,7 @@ public class ProductInPurchase extends ItemInPurchase{
     private List<Allergen> allergens; // Utilizzo un enum per gli allergeni, che dovrai definire
     private String attachment; // Un allegato, presumibilmente un URL a un'immagine o a un documento
     private LocalDate deliveryDate; // La data di consegna del prodotto
+    private boolean fixed; //Prodotto prezzo fisso o prodotto al kg
 
     @Override
     public boolean equals(Object o) {
