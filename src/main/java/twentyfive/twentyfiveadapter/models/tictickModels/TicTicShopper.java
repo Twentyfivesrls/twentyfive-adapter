@@ -20,4 +20,11 @@ public class TicTicShopper {
     private Integer remainingPlates;
     private Integer customerCount;
 
+    public TicTicShopper(String ownerId) {
+        this.ownerId = ownerId;
+        this.orderedPlates = 0;
+        this.soldPlates = 0;
+        this.remainingPlates = 0;
+        this.customerCount = 0;
+    }
 }
