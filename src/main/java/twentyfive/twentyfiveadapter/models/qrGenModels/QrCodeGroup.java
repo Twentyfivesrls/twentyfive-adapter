@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -15,6 +16,7 @@ import java.util.List;
 public class QrCodeGroup {
     @Id
     private String idQrCode;
+    private String animalId;
     private String nameQrCode;
     private String groupName;
     private String link;
@@ -23,4 +25,5 @@ public class QrCodeGroup {
     private Boolean isActivated;
     private String ownerId;
     private String customerId;
+    private LocalDateTime associationDate;
 }
