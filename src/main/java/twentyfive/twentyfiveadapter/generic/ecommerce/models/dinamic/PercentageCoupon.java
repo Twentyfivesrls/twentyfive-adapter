@@ -9,5 +9,5 @@ import twentyfive.twentyfiveadapter.generic.ecommerce.models.persistent.Coupon;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PercentageCoupon extends Coupon {
-    private int percentage;
+    private double percentage;
 }
