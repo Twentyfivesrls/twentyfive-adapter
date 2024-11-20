@@ -21,7 +21,7 @@ public class ProductInPurchase extends ItemInPurchase{
     private String attachment; // Un allegato, presumibilmente un URL a un'immagine o a un documento
     private LocalDate deliveryDate; // La data di consegna del prodotto
     private boolean fixed; //Prodotto prezzo fisso o prodotto al kg
-
+    private Double discountApplied; //Se verrà inserito un discount, di quanto sarà
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

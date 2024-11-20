@@ -3,6 +3,7 @@ package twentyfive.twentyfiveadapter.generic.ecommerce.models.persistent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.AppliedCoupon;
 import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.BundleInPurchase;
 import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.CustomInfo;
 import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.ProductInPurchase;
@@ -28,6 +29,7 @@ public class Order {
     private double totalPrice;
     private String note;
     private String paymentId;
+    private AppliedCoupon appliedCoupon;
     private OrderStatus status; // Assuming OrderStatus is an Enum
     private CustomInfo customInfo; // admin can choose customInfo for order and not himself from idCustomer
 

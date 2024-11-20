@@ -30,6 +30,9 @@ public class Coupon {
     private String code; //Codice da utilizzare per lo sconto
     private LocalDateRange dates; //Data inizio e fine sconto
     private NumberRange priceRange; //Prezzo minimo e massimo per lo sconto
-    private List<String> specificCategoriesId; //CategoriesID che beneficiano dello sconto, se null = tutto lo sconto
+    private int usageCount; //Quanti coupon sono stati usati
+    private Integer maxTotalUsage; //Numero massimo coupon consentiti, se null infiniti
+    private Integer maxUsagePerCustomer; //Numero massimo per Customer consentiti, se null infiniti
+    private List<String> specificCategoriesId; //CategoriesID che beneficiano dello sconto, se null = tutto l'ordine
 
 }
