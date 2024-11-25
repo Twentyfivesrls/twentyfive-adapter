@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.index.CompoundIndexes;
 })
 public class CouponUsage {
 
+    private String id;
     private String idCoupon;
     private String idCustomer;
     private int usageCount;
