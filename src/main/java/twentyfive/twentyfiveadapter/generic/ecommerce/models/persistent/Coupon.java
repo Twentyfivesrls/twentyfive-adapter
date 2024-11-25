@@ -35,6 +35,7 @@ public class Coupon {
     private Integer maxUsagePerCustomer; //Numero massimo per Customer consentiti, se null infiniti
     private List<String> specificCategoriesId; //CategoriesID che beneficiano dello sconto, se null = tutto l'ordine
     private boolean active = true; // Se il coupon è usabile o meno
+    private boolean expired = false; //Coupon scaduto
     private boolean softDeleted; //Se il coupon è stato cancellato
 
 }
