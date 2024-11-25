@@ -40,11 +40,11 @@ public class Coupon {
     private boolean softDeleted; //Se il coupon è stato cancellato
 
 
-    public boolean checkExpiredCoupon(Coupon coupon){
-        if (coupon.getDates() != null){
-            if(coupon.getDates().getEndDate() != null){
+    public boolean checkExpiredCoupon(){
+        if (this.getDates() != null){
+            if(this.getDates().getEndDate() != null){
                 LocalDate today = LocalDate.now();
-                if (coupon.getDates().getEndDate().isBefore(today)) {
+                if (this.getDates().getEndDate().isBefore(today)) {
                     return true;
                 }
             }
