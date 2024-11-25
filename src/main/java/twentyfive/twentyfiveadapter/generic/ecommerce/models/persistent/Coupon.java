@@ -10,6 +10,7 @@ import twentyfive.twentyfiveadapter.generic.ecommerce.utils.LocalDateRange;
 import twentyfive.twentyfiveadapter.generic.ecommerce.utils.NumberRange;
 import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.PercentageCoupon;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -37,5 +38,18 @@ public class Coupon {
     private boolean active = true; // Se il coupon è usabile o meno
     private boolean expired = false; //Coupon scaduto
     private boolean softDeleted; //Se il coupon è stato cancellato
+
+
+    public boolean checkExpiredCoupon(Coupon coupon){
+        if (coupon.getDates() != null){
+            if(coupon.getDates().getEndDate() != null){
+                LocalDate today = LocalDate.now();
+                if (coupon.getDates().getEndDate().isBefore(today)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 }
