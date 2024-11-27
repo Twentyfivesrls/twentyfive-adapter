@@ -17,6 +17,7 @@ public class ItemInPurchase {
     private boolean toPrepare = false; //Variabile di appoggio per il pasticcere
     private String location; //Dove viene messo il prodotto?
     private String counterNote; //Nota da bancone, se disponibile
+    private Double discountApplied; //Se verrà inserito un discount, di quanto sarà
 
     public boolean equalsSameId(Object o) {
         if (this == o) return true;
