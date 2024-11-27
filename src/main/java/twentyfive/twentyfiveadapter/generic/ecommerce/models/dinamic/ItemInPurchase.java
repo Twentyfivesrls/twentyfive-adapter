@@ -31,4 +31,12 @@ public class ItemInPurchase {
     public int hashCodeSameId() {
         return Objects.hash(id);
     }
+
+    public void applyDiscount(double discount) {
+        if (discount > 0) {
+            this.totalPrice -= discount; // Riduci il prezzo totale
+            if (this.totalPrice < 0) this.totalPrice = 0; // Evita valori negativi
+        }
+    }
+
 }
