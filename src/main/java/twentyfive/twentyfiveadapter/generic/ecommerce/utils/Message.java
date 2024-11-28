@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CouponHome {
+public class Message {
     private String title;
     private String description;
     private String imgUrl;
