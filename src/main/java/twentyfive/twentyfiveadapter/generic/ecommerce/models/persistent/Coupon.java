@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.FixedAmountCoupon;
+import twentyfive.twentyfiveadapter.generic.ecommerce.utils.CouponHome;
 import twentyfive.twentyfiveadapter.generic.ecommerce.utils.LocalDateRange;
 import twentyfive.twentyfiveadapter.generic.ecommerce.utils.NumberRange;
 import twentyfive.twentyfiveadapter.generic.ecommerce.models.dinamic.PercentageCoupon;
@@ -38,7 +39,7 @@ public class Coupon {
     private boolean active = true; // Se il coupon è usabile o meno
     private boolean expired = false; //Coupon scaduto
     private boolean softDeleted; //Se il coupon è stato cancellato
-
+    private CouponHome home; //Se il coupon vogliamo che appaia in homepage
 
     public boolean checkExpiredCoupon(){
         if (this.getDates() != null){
