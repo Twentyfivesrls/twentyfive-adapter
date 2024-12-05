@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AppliedCoupon {
     private String code;
-    private String type;
+    private String value;
     private double discountValue;
-    private String description;
 }
