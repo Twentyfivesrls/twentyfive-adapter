@@ -11,4 +11,5 @@ public class AppliedCoupon {
     private String code;
     private String value;
     private double discountValue;
+    private String description;
 }
