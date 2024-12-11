@@ -19,15 +19,18 @@ public class Subscription {
     @Id
     private String id;
     private String name;
+    private String keycloakRole; //ruolo da assegnare a Keycloak
     private List<String> appIds;
     private String description;
     private String price;
     private String imgUrl;
+    private List<String> characteristics; //lista caratteristiche dell'abbonamento
     private Frequency frequency;
     private boolean upselling;
     private Discount discount;
     private List<String> crossSelling;
     private boolean active = true;
+    private boolean softDeleted = false; //boolean associato al soft delete, di default a false
 
     public String getType(){
         if(this.appIds.size()>1){
