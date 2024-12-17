@@ -12,5 +12,5 @@ public class AppliedCoupon {
     private String value;
     private String discountValue;
     private String description;
-    private boolean totalOrderDiscount;
+    private Boolean totalOrderDiscount;
 }
