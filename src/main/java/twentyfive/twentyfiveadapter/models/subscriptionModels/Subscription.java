@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import twentyfive.twentyfiveadapter.dto.subscriptionDto.Discount;
 import twentyfive.twentyfiveadapter.dto.subscriptionDto.Frequency;
+import twentyfive.twentyfiveadapter.dto.subscriptionDto.Price;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Subscription {
     private String keycloakRole; //ruolo da assegnare a Keycloak
     private List<String> appIds;
     private String description;
-    private String price;
+    private double price; //prezzo reale della sottoscrizione (magari scontato)
     private String imgUrl;
     private List<String> characteristics; //lista caratteristiche dell'abbonamento
     private Frequency frequency;

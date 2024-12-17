@@ -28,7 +28,7 @@ public class UserSubscription {
     @Transient
     private String orderData;
     private OrderItemData orderItemData;
-    private Price price; //prezzo reale della sottoscrizione (magari scontato)
+
     private int duration;
     private boolean gifted; //Se glielo abbiamo attivato gratis
 
