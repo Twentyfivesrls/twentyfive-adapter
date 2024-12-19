@@ -22,7 +22,7 @@ public class UserSubscription {
     private String paymentId;
     private String userId; // ID che collega tutte le classi figlio a UserSubscription (Keycloak)
     private LocalDate startDate; // todo come mandarcelo?
-    private Subscription subscriptionData;
+    private MinimalSubscription subscriptionData; //DTO sostitutivo di Subscription
     private List<DateRange> deactivationRanges;
     private LocalDate readAt;
     @Transient
