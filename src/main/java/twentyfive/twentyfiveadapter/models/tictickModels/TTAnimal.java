@@ -24,8 +24,8 @@ public class TTAnimal {
     private String gender;
     private String microchipCode;
     private String bloodGroup;
-    private String allergies;
-    private String pathologies;
+    private List<String> allergies;
+    private List<String> pathologies;
     private boolean sterilization;
     private int age;
     private double weight;
