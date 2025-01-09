@@ -16,4 +16,22 @@ public class Price {
         this.price = price;
         this.currency = "EUR";
     }
+
+    @Override
+    public String toString(){
+        String symbol="";
+        switch(this.currency){
+            case "EUR" -> {
+                 symbol= String.valueOf(SymbolCurrency.€);
+            }
+            case "USD" -> {
+                symbol= String.valueOf(SymbolCurrency.$);
+            }
+            default->{
+                symbol=this.currency;
+            }
+        }
+        return symbol + " " + this.price;
+    }
+
 }
