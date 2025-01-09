@@ -21,5 +21,6 @@ public class UserPayment {
     private LocalDateTime paymentDate; //Time when the payment is done
     private Price price;
     private String paymentMethod;
-    private Map<String,Object> paymentData; // todo currently saved as Map because we don't know all the data about the payments
+    private Map<String,Object> paymentData;// todo currently saved as Map because we don't know all the data about the payments
+    private String userSubscriptionId;
 }
