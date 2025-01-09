@@ -18,6 +18,5 @@ public class UserPayment {
     @Id
     private String id;
     private LocalDateTime paymentDate; //Time when the payment is done
-    private String userSubscriptionId; //per riflettere potenziali modifiche alla userSubsctiption sul payment associato
     private Map<String,Object> paymentData; // todo currently saved as Map because we don't know all the data about the payments
 }
