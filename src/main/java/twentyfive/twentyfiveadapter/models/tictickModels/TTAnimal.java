@@ -31,6 +31,7 @@ public class TTAnimal {
     private double weight;
 
     private String address;
+    private String birthDate;
     private List<String> phone;
     private List<String> email;
 }
