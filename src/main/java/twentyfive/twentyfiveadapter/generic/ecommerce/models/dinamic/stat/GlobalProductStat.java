@@ -17,4 +17,6 @@ public class GlobalProductStat {
     private List<DashboardProductStat> dashboardProductStats;
 
     private List<CategoryProductStat> categoryStats;
+
+
 }
