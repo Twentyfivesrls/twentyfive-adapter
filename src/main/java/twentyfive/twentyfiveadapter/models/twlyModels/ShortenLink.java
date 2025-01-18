@@ -1,4 +1,4 @@
-package twentyfive.twentyfiveadapter.adapter.Document.ShortenLinkDocumentDB;
+package twentyfive.twentyfiveadapter.models.twlyModels;
 
 
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "shorten_link")
-public class ShortenLinkDocumentDB {
+public class ShortenLink {
 
     @Id
     private String id;
@@ -21,4 +21,5 @@ public class ShortenLinkDocumentDB {
     private String shortUrl;
     private Date createdAt;
     private String userId;
+    private boolean deleted;
 }

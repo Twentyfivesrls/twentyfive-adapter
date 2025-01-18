@@ -14,7 +14,6 @@ import org.mapstruct.factory.Mappers;
 import twentyfive.twentyfiveadapter.adapter.Document.QrGenDocumentDB.EmailNotificationDocumentDB;
 import twentyfive.twentyfiveadapter.adapter.Document.QrGenDocumentDB.QrCodeObjectDocumentDB;
 import twentyfive.twentyfiveadapter.adapter.Document.QrGenDocumentDB.QrStatisticsDocumentDB;
-import twentyfive.twentyfiveadapter.adapter.Document.ShortenLinkDocumentDB.ShortenLinkDocumentDB;
 import twentyfive.twentyfiveadapter.adapter.Document.TicketObjDocumentDB.AddressBookDocumentDB;
 import twentyfive.twentyfiveadapter.adapter.Document.TicketObjDocumentDB.EventDocumentDB;
 import twentyfive.twentyfiveadapter.adapter.Document.TicketObjDocumentDB.StatisticDocumentDB;
@@ -49,8 +48,8 @@ public interface TwentyFiveMapper {
     QrStatisticsDocumentDB qrStatisticsToQrStatisticsDocumentDB( QrStatistics qrStatistic);
     QrStatistics qrStatisticsDocumentDBToQrStatistics(QrStatisticsDocumentDB qrStatisticsDocumentDB);
 
-    ShortenLinkDocumentDB shortenLinkToShortenLinkDocumentDB(ShortenLink shortenLink);
-    ShortenLink shortenLinkDocumentDBToShortenLink(ShortenLinkDocumentDB shortenLinkDocumentDB);
+    ShortenLink shortenLinkToShortenLinkDocumentDB(ShortenLink shortenLink);
+    ShortenLink shortenLinkDocumentDBToShortenLink(ShortenLink shortenLinkDocumentDB);
 
 
 }
