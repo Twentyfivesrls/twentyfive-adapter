@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DashboardProductStat {
-    private String idProduct;
+    private String idCategory;
     private long totalProductSold;
     private double totalRevenue;
 }
