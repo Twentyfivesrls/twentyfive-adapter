@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TrayStat {
     private String id;
-    private int quantity;
+    private long quantity;
     private double totalWeight;
     private double totalRevenue;
 

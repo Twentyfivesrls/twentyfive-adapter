@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DashboardProductStat {
     private String idProduct;
-    private int totalProductSold;
+    private long totalProductSold;
     private double totalRevenue;
 }

@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GeneralTrayStat {
-    private int quantity;
+    private long quantity;
     private double totalWeight;
     private double totalRevenue;
-    private int totalProductWeighted;
+    private long totalProductWeighted;
 }

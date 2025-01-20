@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GeneralIngredientStat {
-    private int usedIngredients;
-    private int totalIngredients;
-    private int totalUsedIngredients;
+    private long usedIngredients;
+    private long totalIngredients;
+    private long totalUsedIngredients;
 }

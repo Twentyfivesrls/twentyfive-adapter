@@ -13,7 +13,7 @@ public class GlobalProductStat {
 
     private GeneralProductStat generalStat;
 
-    private OurCakeStat ourCakeStat; //TODO da pensare meglio
+    private CustomCakeStat customCakeStat; //TODO da pensare meglio
     private List<DashboardProductStat> dashboardProductStats;
 
     private List<CategoryProductStat> categoryStats;

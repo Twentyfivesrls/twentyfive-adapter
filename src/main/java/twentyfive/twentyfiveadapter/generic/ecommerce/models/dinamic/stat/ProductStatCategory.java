@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductStatCategory {
     private String idProduct;
-    private int quantity;
+    private long quantity;
     private double totalWeight;
     private double totalRevenue;
 }

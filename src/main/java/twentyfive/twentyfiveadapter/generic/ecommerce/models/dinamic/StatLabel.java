@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LabelAndValue {
+public class StatLabel {
     private String label;
-    private int total; //numero totale del prodotto
+    private long total; //numero totale del prodotto
     private double value;
 }

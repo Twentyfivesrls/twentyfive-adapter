@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GeneralProductStat {
-    private int totalProductsSold; // Numero totale di prodotti venduti
-    private int totalOrders; // Numero totale di ordini effettuati
-    private int totalCustomersServed; // Numero totale di clienti serviti
+    private long totalProductsSold; // Numero totale di prodotti venduti
+    private long totalOrders; // Numero totale di ordini effettuati
+    private long totalCustomersServed; // Numero totale di clienti serviti
     private double totalRevenue; // Totale guadagnato
 }

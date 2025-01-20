@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class GlobalCategoryStat {
     private String idCategory;
-    private int usedIngredients;
-    private int totalUsedIngredients;
+    private long usedIngredients;
+    private long totalUsedIngredients;
 }

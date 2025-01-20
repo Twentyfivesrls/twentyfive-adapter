@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MeasureStat {
     private String label;
-    private int quantity;
+    private long quantity;
 }
