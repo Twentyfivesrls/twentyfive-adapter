@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class GlobalIngredientStat {
     private GeneralIngredientStat generalStat;
-    private GlobalCategoryStat categoryStat;
+    private List<GlobalCategoryStat> categoryStat;
     private List<CategoryIngredientStat> categoryStats;
 
 
