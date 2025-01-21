@@ -10,5 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryIngredientStat {
-    private List<IngredientStatCategory> ingredientStats;
+    private String idIngredient;
+    private long totalTimeUsed;
 }
