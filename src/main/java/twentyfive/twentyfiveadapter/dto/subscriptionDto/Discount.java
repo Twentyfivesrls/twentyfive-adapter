@@ -3,7 +3,7 @@ package twentyfive.twentyfiveadapter.dto.subscriptionDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import twentyfive.twentyfiveadapter.generic.ecommerce.utils.DateRange;
+import twentyfive.twentyfiveadapter.generic.ecommerce.utils.LocalDateRange;
 
 import java.time.LocalDate;
 
@@ -13,6 +13,6 @@ import java.time.LocalDate;
 public class Discount {
     private boolean permanent;
     private LocalDate until;
-    private DateRange dateRange;
+    private LocalDateRange dateRange;
     private double rate;
 }
