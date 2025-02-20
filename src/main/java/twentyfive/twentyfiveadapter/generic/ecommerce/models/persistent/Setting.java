@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import twentyfive.twentyfiveadapter.dto.groypalDaemon.PaypalCredentials;
 import twentyfive.twentyfiveadapter.generic.ecommerce.utils.DateRange;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -25,5 +26,6 @@ public class Setting {
     private List<String> locations; //Lista di luoghi dove poter allocare i prodotti
     private List<String> roles; //Lista possibili ruoli dei dipendenti
     private PaypalCredentials paypalCredentials;
+    private List<LocalDateTime> inactivityDays;
     private boolean dev = false;
 }

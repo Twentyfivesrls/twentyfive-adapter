@@ -35,15 +35,21 @@ public class TimeSlot {
      * @param numSlotsRequired the number of slots required.
      * @return a map of dates to a list of times where the required number of slots are available.
      */
-    public Map<LocalDate, List<LocalTime>> findTimeForNumSlots(LocalDateTime startingDate, int numSlotsRequired) {
+    public Map<LocalDate, List<LocalTime>> findTimeForNumSlots(
+            LocalDateTime startingDate,
+            int numSlotsRequired,
+            Set<LocalDate> inactivityDays) {  // Aggiungi un parametro per i giorni di inattività
         Map<LocalDate, List<LocalTime>> result = new HashMap<>();
-        boolean[] firstSlotFound = {false};  // Flag per indicare se abbiamo trovato il primo orario valido
-
-        // Itera su tutte le date e verifica se esistono orari validi
+        boolean[] firstSlotFound = new boolean[]{false};
         this.numSlotsMap.entrySet().stream()
-                .filter(dayEntry -> !dayEntry.getKey().isBefore(startingDate.toLocalDate()))  // Considera solo le date uguali o successive
-                .forEach(dayEntry -> processDay(dayEntry, startingDate, numSlotsRequired, result, firstSlotFound));
-
+                .filter(dayEntry -> {
+                    LocalDate day = dayEntry.getKey();
+                    // Escludi giorni antecedenti alla data di partenza e quelli presenti in inactivityDays
+                    return !day.isBefore(startingDate.toLocalDate()) && !inactivityDays.contains(day);
+                })
+                .forEach(dayEntry -> {
+                    this.processDay(dayEntry, startingDate, numSlotsRequired, result, firstSlotFound);
+                });
         return result;
     }
 
@@ -248,7 +254,7 @@ public class TimeSlot {
 
         // Test finding time slots available from a specific start time
         LocalDateTime startTime = LocalDateTime.now().withHour(9).withMinute(0).withSecond(0).withNano(0);
-        Map<LocalDate, List<LocalTime>> availableSlots = ts.findTimeForNumSlots(startTime, 6);
+        Map<LocalDate, List<LocalTime>> availableSlots = ts.findTimeForNumSlots(startTime, 6,new HashSet<>());
         System.out.println("Available slots from " + startTime + ": " + availableSlots);
 
         // Test reserving slots
@@ -256,7 +262,7 @@ public class TimeSlot {
         System.out.println("Reservation at 10 AM successful: " + reservationSuccess);
 
         // Check availability after reservation
-        availableSlots = ts.findTimeForNumSlots(startTime, 6);
+        availableSlots = ts.findTimeForNumSlots(startTime, 6,new HashSet<>());
         System.out.println("Available slots after reservation from " + startTime + ": " + availableSlots);
 
 
