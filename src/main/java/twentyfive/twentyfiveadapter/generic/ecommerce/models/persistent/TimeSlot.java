@@ -42,7 +42,9 @@ public class TimeSlot {
 
         // Itera su tutte le date e verifica se esistono orari validi
         this.numSlotsMap.entrySet().stream()
-                .filter(dayEntry -> (!dayEntry.getKey().isBefore(startingDate.toLocalDate()))&&!inactivityDays.contains(dayEntry.getKey())) // Considera solo le date uguali o successive
+                .filter(dayEntry -> (!dayEntry.getKey().isBefore(startingDate.toLocalDate()))
+                        //&&!inactivityDays.contains(dayEntry.getKey())
+                ) // Considera solo le date uguali o successive
                 .forEach(dayEntry -> processDay(dayEntry, startingDate, numSlotsRequired, result, firstSlotFound));
 
         return result;
