@@ -249,7 +249,7 @@ public class TimeSlot {
 
         // Test finding time slots available from a specific start time
         LocalDateTime startTime = LocalDateTime.now().withHour(9).withMinute(0).withSecond(0).withNano(0);
-        Map<LocalDate, List<LocalTime>> availableSlots = ts.findTimeForNumSlots(startTime, 6);
+        Map<LocalDate, List<LocalTime>> availableSlots = ts.findTimeForNumSlots(startTime, 6,new HashSet<>());
         System.out.println("Available slots from " + startTime + ": " + availableSlots);
 
         // Test reserving slots
@@ -257,7 +257,7 @@ public class TimeSlot {
         System.out.println("Reservation at 10 AM successful: " + reservationSuccess);
 
         // Check availability after reservation
-        availableSlots = ts.findTimeForNumSlots(startTime, 6);
+        availableSlots = ts.findTimeForNumSlots(startTime, 6,new HashSet<>());
         System.out.println("Available slots after reservation from " + startTime + ": " + availableSlots);
 
 
