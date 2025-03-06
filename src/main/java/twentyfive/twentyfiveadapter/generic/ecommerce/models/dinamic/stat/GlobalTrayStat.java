@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class GlobalTrayStat {
     private GeneralTrayStat generalTrayStat;
-    private TrayTypeStat trayTypeStat;
+    private List<TrayStat> trayStats;
     private TrayMeasureStat trayMeasureStat;
 
     private List<ProductWeightedStat> productWeightedStats;
