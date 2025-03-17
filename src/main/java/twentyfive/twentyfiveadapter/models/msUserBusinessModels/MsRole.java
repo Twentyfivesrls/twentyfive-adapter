@@ -10,9 +10,10 @@ public class MsRole {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String name;
-    private String keycloakRole;
-    private Boolean assignable;
+    private String name; //required
+    private String keycloakRole; //required
+    private Boolean assignable; //required
     @ManyToOne
-    private Business business;
+    private Business business; //required
+    //constraint tra business e name
 }

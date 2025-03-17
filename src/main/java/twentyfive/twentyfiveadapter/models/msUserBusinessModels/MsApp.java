@@ -12,9 +12,9 @@ public class MsApp {
     private Long id;
 
     @Column(unique = true)
-    private String name;
+    private String name; //required
 
-    private String realm;
+    private String realm; //required
 
     private String siteUrl;
 

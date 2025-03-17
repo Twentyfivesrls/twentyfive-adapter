@@ -10,13 +10,16 @@ public class MsUser {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String keycloakId;
+    private String keycloakId; //constraint tra app e keycloakId
     private String firstName;
     private String lastName;
+
     @Column(unique = true)
     private String email;
+
     @ManyToOne
     private MsApp app;
+
     @ManyToOne
     private Business business;
 }

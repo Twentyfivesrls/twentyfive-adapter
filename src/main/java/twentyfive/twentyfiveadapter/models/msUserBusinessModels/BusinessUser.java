@@ -12,13 +12,13 @@ public class BusinessUser {
     private Long id;
 
     @ManyToOne
-    private MsUser user;
+    private MsUser user; //required
 
     @ManyToOne
-    private Business business;
+    private Business business; //required
 
     @ManyToOne
-    private MsRole role;
+    private MsRole role; //required
 
-    private Boolean disabled;
+    private Boolean disabled; //required
 }

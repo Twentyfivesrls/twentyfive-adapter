@@ -12,10 +12,10 @@ public class BusinessApp {
     private Long id;
 
     @ManyToOne
-    private Business business;
+    private Business business; //required
 
     @ManyToOne
-    private MsApp app;
+    private MsApp app; //required
 
     @OneToOne
     private OperationalSettings operationalSettings;
