@@ -4,20 +4,27 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
-@Table(schema = "ms_user_business", name = "ms_user")
+@Table(
+        schema = "ms_user_business",
+        name = "ms_user",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"app_id", "keycloak_id"})
+        }
+)
 public class MsUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String keycloakId; //constraint tra app e keycloakId
+    @Column(nullable = false)
+    private String keycloakId;
     private String firstName;
     private String lastName;
 
-    @Column(unique = true)
+    @Column(unique = true,nullable = false)
     private String email;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private MsApp app;
 
     @ManyToOne

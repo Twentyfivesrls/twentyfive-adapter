@@ -4,16 +4,24 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
-@Table(schema = "ms_user_business", name = "ms_role")
+@Table(
+        schema = "ms_user_business",
+        name = "ms_role",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"business_id", "name"})
+        }
+)
 public class MsRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String name; //required
-    private String keycloakRole; //required
-    private Boolean assignable; //required
-    @ManyToOne
-    private Business business; //required
-    //constraint tra business e name
+    @Column(nullable = false)
+    private String name;
+    @Column(nullable = false)
+    private String keycloakRole;
+    @Column(nullable = false)
+    private Boolean assignable;
+    @ManyToOne(optional = false)
+    private Business business;
 }

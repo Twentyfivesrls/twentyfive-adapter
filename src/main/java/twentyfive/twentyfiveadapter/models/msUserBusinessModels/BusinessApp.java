@@ -11,11 +11,11 @@ public class BusinessApp {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @ManyToOne
-    private Business business; //required
+    @ManyToOne(optional = false)
+    private Business business;
 
-    @ManyToOne
-    private MsApp app; //required
+    @ManyToOne(optional = false)
+    private MsApp app;
 
     @OneToOne
     private OperationalSettings operationalSettings;

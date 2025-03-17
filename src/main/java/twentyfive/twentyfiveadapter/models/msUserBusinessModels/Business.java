@@ -10,6 +10,6 @@ public class Business {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name; //required
 }

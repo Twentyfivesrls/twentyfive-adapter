@@ -11,14 +11,15 @@ public class BusinessUser {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @ManyToOne
-    private MsUser user; //required
+    @ManyToOne(optional = false)
+    private MsUser user;
 
-    @ManyToOne
-    private Business business; //required
+    @ManyToOne(optional = false)
+    private Business business;
 
-    @ManyToOne
-    private MsRole role; //required
+    @ManyToOne(optional = false)
+    private MsRole role;
 
-    private Boolean disabled; //required
+    @Column(nullable = false)
+    private Boolean disabled;
 }
