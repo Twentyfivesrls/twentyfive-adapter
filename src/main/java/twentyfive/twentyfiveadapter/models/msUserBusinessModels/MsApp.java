@@ -14,8 +14,8 @@ public class MsApp {
     @Column(unique = true,nullable = false)
     private String name; //required
 
-    @Column(nullable = false)
-    private String realm; //required
+    @ManyToOne(optional = false)
+    private MsRealm realm; //required
 
     private String siteUrl;
 
