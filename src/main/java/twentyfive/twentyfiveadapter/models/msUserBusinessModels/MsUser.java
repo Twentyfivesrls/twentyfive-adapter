@@ -9,6 +9,7 @@ import lombok.Data;
         schema = "ms_user_business",
         name = "ms_user",
         uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"email", "app_id"}),
                 @UniqueConstraint(columnNames = {"app_id", "keycloak_id"})
         }
 )
@@ -22,7 +23,7 @@ public class MsUser {
     private String firstName;
     private String lastName;
 
-    @Column(unique = true,nullable = false)
+    @Column(nullable = false)
     private String email;
 
     @ManyToOne(optional = false)

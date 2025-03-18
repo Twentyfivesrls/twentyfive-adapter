@@ -9,7 +9,7 @@ import lombok.Data;
         schema = "ms_user_business",
         name = "ms_role",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"business_id", "name"})
+                @UniqueConstraint(columnNames = {"business_app_id", "name"})
         }
 )
 public class MsRole {
