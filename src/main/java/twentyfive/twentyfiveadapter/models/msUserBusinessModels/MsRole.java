@@ -24,5 +24,5 @@ public class MsRole {
     @Column(nullable = false)
     private Boolean assignable;
     @ManyToOne(optional = false)
-    private Business business;
+    private BusinessApp businessApp;
 }
