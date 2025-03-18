@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
+@Entity
 @Table(schema = "ms_user_business", name = "business_user")
 public class BusinessUser {
 

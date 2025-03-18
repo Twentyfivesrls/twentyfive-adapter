@@ -1,12 +1,10 @@
 package twentyfive.twentyfiveadapter.models.msUserBusinessModels;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
+@Entity
 @Table(schema = "ms_user_business", name = "operational_settings")
 public class OperationalSettings {
 
