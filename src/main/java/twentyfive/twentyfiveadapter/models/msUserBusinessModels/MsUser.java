@@ -15,7 +15,7 @@ import lombok.Data;
 public class MsUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String keycloakId;

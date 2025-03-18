@@ -8,7 +8,7 @@ import lombok.Data;
 @Table(schema = "ms_user_business", name = "ms_realm")
 public class MsRealm {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String name;
