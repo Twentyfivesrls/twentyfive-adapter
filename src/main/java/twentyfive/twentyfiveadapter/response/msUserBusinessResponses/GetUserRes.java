@@ -1,9 +1,9 @@
-package twentyfive.twentyfiveadapter.request.msUserBusinessRequests;
+package twentyfive.twentyfiveadapter.response.msUserBusinessResponses;
 
 import lombok.Data;
 
 @Data
-public class GetUserReq {
+public class GetUserRes {
 
     private String firstName;
     private String lastName;
