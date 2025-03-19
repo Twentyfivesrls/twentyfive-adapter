@@ -1,4 +1,4 @@
-package twentyfive.twentyfiveadapter.request;
+package twentyfive.twentyfiveadapter.request.msUserBusinessRequests;
 
 import lombok.Data;
 
