@@ -31,4 +31,8 @@ public class MsUser {
 
     @ManyToOne
     private Business business;
+
+    public String getFullName(){
+        return this.lastName + " " + this.firstName;
+    }
 }
