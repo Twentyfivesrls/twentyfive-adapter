@@ -9,5 +9,9 @@ public class GetUserRes {
     private String lastName;
     private String email;
     private String role;
-    private String status;
+    private boolean enabled;
+
+    public String getFullName() {
+        return lastName + " " + firstName;
+    }
 }
