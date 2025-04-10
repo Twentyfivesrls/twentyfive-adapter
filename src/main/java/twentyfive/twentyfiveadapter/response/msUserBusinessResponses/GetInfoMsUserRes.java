@@ -9,4 +9,5 @@ public class GetInfoMsUserRes {
     private String firstName;
     private String lastName;
     private String role;
+    private String activeBusiness;
 }
