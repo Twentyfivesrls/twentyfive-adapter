@@ -1,0 +1,13 @@
+package twentyfive.twentyfiveadapter.request.msUserBusinessRequests;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ResetPasswordMsUserReq {
+    private String email;
+    private String appName;
+}
