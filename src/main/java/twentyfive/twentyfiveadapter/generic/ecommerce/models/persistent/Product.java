@@ -22,4 +22,5 @@ public abstract class Product {
     private String imageUrl;
     private boolean active = true; //il prodotto rimane visibile ma disattivato
     private boolean softDeleted = false; //il prodotto è cancellato in modo "soft"
+    private boolean toPrepare = true; //Il prodotto se è da preparare o meno
 }
