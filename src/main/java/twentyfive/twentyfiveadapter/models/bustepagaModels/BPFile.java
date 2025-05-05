@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
+import twentyfive.twentyfiveadapter.dto.bustepagaDto.ConfirmationState;
 
 import java.time.LocalDateTime;
 
@@ -17,5 +18,5 @@ public class BPFile {
     private String filename;
     private String emailText; //text sent to employee in email with the file attached
     private LocalDateTime uploadDate;
-    private Boolean confirmed;
+    private ConfirmationState confirmationState;
 }
