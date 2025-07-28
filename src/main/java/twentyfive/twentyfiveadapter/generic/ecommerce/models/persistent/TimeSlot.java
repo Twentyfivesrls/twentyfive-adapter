@@ -8,6 +8,8 @@ import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import org.springframework.cglib.core.Local;
+
 @Data
 public class TimeSlot {
     private String id;
@@ -35,39 +37,43 @@ public class TimeSlot {
      * @param numSlotsRequired the number of slots required.
      * @return a map of dates to a list of times where the required number of slots are available.
      */
-    public Map<LocalDate, List<LocalTime>> findTimeForNumSlots(LocalDateTime startingDate, int numSlotsRequired, Set<LocalDate> inactivityDays) {
+    public Map<LocalDate, List<LocalTime>> findTimeForNumSlots(LocalDateTime startingDate, int numSlotsRequired, Set<LocalDate> inactivityDays, LocalTime bestStart, LocalTime bestEnd) {
         if (inactivityDays==null)throw new NullPointerException();
         Map<LocalDate, List<LocalTime>> result = new HashMap<>();
         boolean[] firstSlotFound = {false};  // Flag per indicare se abbiamo trovato il primo orario valido
-
+        
         // Itera su tutte le date e verifica se esistono orari validi
         this.numSlotsMap.entrySet().stream()
                 .filter(dayEntry -> (!dayEntry.getKey().isBefore(startingDate.toLocalDate()))
                         &&!inactivityDays.contains(dayEntry.getKey())
                 ) // Considera solo le date uguali o successive
-                .forEach(dayEntry -> processDay(dayEntry, startingDate, numSlotsRequired, result, firstSlotFound));
+                .forEach(dayEntry -> processDay(dayEntry, startingDate, numSlotsRequired, result, firstSlotFound, bestStart, bestEnd));
 
         return result;
     }
 
-    private void processDay(Map.Entry<LocalDate, Map<LocalTime, Integer>> dayEntry, LocalDateTime startingDate, int numSlotsRequired, Map<LocalDate, List<LocalTime>> result, boolean[] firstSlotFound) {
+    private void processDay(Map.Entry<LocalDate, Map<LocalTime, Integer>> dayEntry, LocalDateTime startingDate, int numSlotsRequired, Map<LocalDate, List<LocalTime>> result, boolean[] firstSlotFound, LocalTime bestStart, LocalTime bestEnd) {
         LocalDate date = dayEntry.getKey();
         List<LocalTime> dayResult = new ArrayList<>();
 
-        // Iteriamo su ogni orario di quella data
         dayEntry.getValue().entrySet().stream()
-                .filter(hourEntry -> !date.atTime(hourEntry.getKey()).isBefore(startingDate))  // Considera solo orari dopo il startingDate
+                .filter(hourEntry -> {
+                    LocalTime time = hourEntry.getKey();
+                    return !date.atTime(time).isBefore(startingDate) &&
+                        (bestStart == null || !time.isBefore(bestStart)) &&
+                        (bestEnd == null || !time.isAfter(bestEnd));
+                })
                 .forEach(hourEntry -> {
                     if (!firstSlotFound[0]) {
                         evaluateTime(dayEntry.getValue(), hourEntry, numSlotsRequired, dayResult);
                         if (!dayResult.isEmpty()) {
-                            firstSlotFound[0] = true;  // Segnala che abbiamo trovato il primo slot utile
+                            firstSlotFound[0] = true;
                         }
                     } else {
-                        // Dopo aver trovato il primo orario utile, continuiamo a processare quelli successivi
                         evaluateTime(dayEntry.getValue(), hourEntry, numSlotsRequired, dayResult);
                     }
                 });
+
 
         if (!dayResult.isEmpty()) {
             result.put(date, dayResult);  // Aggiungi il risultato se ci sono orari validi
@@ -119,7 +125,7 @@ public class TimeSlot {
 
 
 
-    public boolean reserveTimeSlots(LocalDateTime pickupDate, int numSlots) {
+    public boolean reserveTimeSlots(LocalDateTime pickupDate, int numSlots,LocalTime bestStart, LocalTime bestEnd) {
         LocalDate date = pickupDate.toLocalDate();
         Map<LocalTime, Integer> dailySlots = this.numSlotsMap.get(date);
 
@@ -138,8 +144,13 @@ public class TimeSlot {
 
                 // Filtriamo per considerare solo gli slot fino all'orario scelto e dopo l'orario attuale
                 dailySlots = dailySlots.entrySet().stream()
-                        .filter(entry -> entry.getKey().isAfter(now) || entry.getKey().equals(now))
-                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, TreeMap::new));
+                .filter(entry -> {
+                    LocalTime timeDay = entry.getKey();
+                    return (bestStart == null || !timeDay.isBefore(bestStart)) &&
+                    bestEnd == null || !timeDay.isAfter(bestEnd);
+                })
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a,b)->a, TreeMap::new));
+
             }
 
             // Controlliamo se ci sono abbastanza slot disponibili, considerando solo gli slot precedenti o uguali
@@ -245,21 +256,23 @@ public class TimeSlot {
         slotsPerHour.put(LocalTime.of(12, 0), 1);
         slotsPerHour.put(LocalTime.of(13, 0), 1);
 
-        ts.initializeDay(LocalDate.now(), slotsPerHour);
+        ts.initializeDay(LocalDate.now().plusDays(1), slotsPerHour);
 
         System.out.println(ts);
 
         // Test finding time slots available from a specific start time
-        LocalDateTime startTime = LocalDateTime.now().withHour(9).withMinute(0).withSecond(0).withNano(0);
-        Map<LocalDate, List<LocalTime>> availableSlots = ts.findTimeForNumSlots(startTime, 6,new HashSet<>());
+        LocalDateTime startTime = LocalDateTime.now().plusDays(1).withHour(8).withMinute(0).withSecond(0).withNano(0);
+        LocalTime bestStart = LocalTime.of(10, 0);
+        LocalTime bestEnd = LocalTime.of(12, 0);
+        Map<LocalDate, List<LocalTime>> availableSlots = ts.findTimeForNumSlots(startTime, 6,new HashSet<>(),bestStart, bestEnd);
         System.out.println("Available slots from " + startTime + ": " + availableSlots);
 
         // Test reserving slots
-        boolean reservationSuccess = ts.reserveTimeSlots(LocalDateTime.now().withHour(11), 6);
+        boolean reservationSuccess = ts.reserveTimeSlots(LocalDateTime.now().plusDays(1).withHour(11), 6,bestStart, bestEnd);
         System.out.println("Reservation at 10 AM successful: " + reservationSuccess);
 
         // Check availability after reservation
-        availableSlots = ts.findTimeForNumSlots(startTime, 6,new HashSet<>());
+        availableSlots = ts.findTimeForNumSlots(startTime, 6,new HashSet<>(),bestStart, bestEnd);
         System.out.println("Available slots after reservation from " + startTime + ": " + availableSlots);
 
 
