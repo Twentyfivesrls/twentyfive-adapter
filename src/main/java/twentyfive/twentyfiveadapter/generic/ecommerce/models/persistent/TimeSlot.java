@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.cglib.core.Local;
+import twentyfive.twentyfiveadapter.generic.ecommerce.utils.DateRange;
 
 @Data
 public class TimeSlot {
@@ -37,31 +38,47 @@ public class TimeSlot {
      * @param numSlotsRequired the number of slots required.
      * @return a map of dates to a list of times where the required number of slots are available.
      */
-    public Map<LocalDate, List<LocalTime>> findTimeForNumSlots(LocalDateTime startingDate, int numSlotsRequired, Set<LocalDate> inactivityDays, LocalTime bestStart, LocalTime bestEnd) {
-        if (inactivityDays==null)throw new NullPointerException();
+    public Map<LocalDate, List<LocalTime>> findTimeForNumSlots(LocalDateTime startingDate, int numSlotsRequired, List<InactiveDay> inactiveDays, LocalTime bestStart, LocalTime bestEnd) {
+        if (inactiveDays==null)throw new NullPointerException();
+
+        Set<LocalDate> fullDayClosed = inactiveDays.stream()
+                .filter(InactiveDay::isFullDay)
+                .map(InactiveDay::getDate)
+                .collect(Collectors.toSet());
+
+        Map<LocalDate, List<DateRange>> partialClosed = inactiveDays.stream()
+                .filter(d -> !d.isFullDay())
+                .collect(Collectors.groupingBy(
+                        InactiveDay::getDate,
+                        Collectors.mapping(d -> new DateRange(d.getStartTime(), d.getEndTime()),
+                                Collectors.toList())
+                ));
+
         Map<LocalDate, List<LocalTime>> result = new HashMap<>();
         boolean[] firstSlotFound = {false};  // Flag per indicare se abbiamo trovato il primo orario valido
         
         // Itera su tutte le date e verifica se esistono orari validi
         this.numSlotsMap.entrySet().stream()
-                .filter(dayEntry -> (!dayEntry.getKey().isBefore(startingDate.toLocalDate()))
-                        &&!inactivityDays.contains(dayEntry.getKey())
+                .filter(dayEntry ->
+                        !dayEntry.getKey().isBefore(startingDate.toLocalDate()) && !fullDayClosed.contains(dayEntry.getKey())
                 ) // Considera solo le date uguali o successive
-                .forEach(dayEntry -> processDay(dayEntry, startingDate, numSlotsRequired, result, firstSlotFound, bestStart, bestEnd));
+                .forEach(dayEntry -> processDay(dayEntry, startingDate, numSlotsRequired, result, firstSlotFound, bestStart, bestEnd, partialClosed));
 
         return result;
     }
 
-    private void processDay(Map.Entry<LocalDate, Map<LocalTime, Integer>> dayEntry, LocalDateTime startingDate, int numSlotsRequired, Map<LocalDate, List<LocalTime>> result, boolean[] firstSlotFound, LocalTime bestStart, LocalTime bestEnd) {
+    private void processDay(Map.Entry<LocalDate, Map<LocalTime, Integer>> dayEntry, LocalDateTime startingDate, int numSlotsRequired, Map<LocalDate, List<LocalTime>> result, boolean[] firstSlotFound, LocalTime bestStart, LocalTime bestEnd, Map<LocalDate, List<DateRange>> partialClosed) {
         LocalDate date = dayEntry.getKey();
         List<LocalTime> dayResult = new ArrayList<>();
+        List<DateRange> closedRanges = partialClosed.getOrDefault(date, Collections.emptyList());
 
         dayEntry.getValue().entrySet().stream()
                 .filter(hourEntry -> {
                     LocalTime time = hourEntry.getKey();
-                    return !date.atTime(time).isBefore(startingDate) &&
-                        (bestStart == null || !time.isBefore(bestStart)) &&
-                        (bestEnd == null || !time.isAfter(bestEnd));
+                    return !date.atTime(time).isBefore(startingDate)
+                            && (bestStart == null || !time.isBefore(bestStart))
+                            && (bestEnd == null || !time.isAfter(bestEnd))
+                            && !isInAnyRange(time, closedRanges);
                 })
                 .forEach(hourEntry -> {
                     if (!firstSlotFound[0]) {
@@ -78,6 +95,19 @@ public class TimeSlot {
         if (!dayResult.isEmpty()) {
             result.put(date, dayResult);  // Aggiungi il risultato se ci sono orari validi
         }
+    }
+
+    private boolean isInAnyRange(LocalTime t, List<DateRange> ranges) {
+        for (DateRange r : ranges) {
+            if (r.getStartTime() != null && r.getEndTime() != null) {
+                if (!t.isBefore(r.getStartTime()) && !t.isAfter(r.getEndTime())) return true; // [start,end]
+            } else if (r.getStartTime() != null) {
+                if (!t.isBefore(r.getStartTime())) return true;
+            } else if (r.getEndTime() != null) {
+                if (!t.isAfter(r.getEndTime())) return true;
+            }
+        }
+        return false;
     }
 
 
@@ -121,19 +151,42 @@ public class TimeSlot {
         return false;  // Non ci sono abbastanza slot
     }
 
-
-
-
-
-    public boolean reserveTimeSlots(LocalDateTime pickupDate, int numSlots,LocalTime bestStart, LocalTime bestEnd) {
+    public boolean reserveTimeSlots(LocalDateTime pickupDate, int numSlots,LocalTime bestStart, LocalTime bestEnd, List<InactiveDay> inactiveDays) {
         LocalDate date = pickupDate.toLocalDate();
         Map<LocalTime, Integer> dailySlots = this.numSlotsMap.get(date);
+
+        if (inactiveDays != null && inactiveDays.stream()
+                .anyMatch(d -> d.isFullDay() && d.getDate().equals(date))) {
+            return false;
+        }
 
         if (dailySlots == null) {
             return false; // Se non ci sono slot disponibili per la data selezionata
         } else {
             LocalTime time = pickupDate.toLocalTime();
             LocalTime now = LocalTime.now();
+
+            if (inactiveDays != null) {
+                List<InactiveDay> partialClosed = inactiveDays.stream()
+                        .filter(d -> !d.isFullDay() && d.getDate().equals(date))
+                        .collect(Collectors.toList());
+
+                // rimuovi le ore dentro le fasce chiuse
+                dailySlots = dailySlots.entrySet().stream()
+                        .filter(entry -> partialClosed.stream().noneMatch(d -> {
+                            LocalTime start = d.getStartTime();
+                            LocalTime end = d.getEndTime();
+                            LocalTime slotTime = entry.getKey();
+                            if (start != null && end != null)
+                                return !slotTime.isBefore(start) && !slotTime.isAfter(end);
+                            if (start != null)
+                                return !slotTime.isBefore(start);
+                            if (end != null)
+                                return !slotTime.isAfter(end);
+                            return false;
+                        }))
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a,b)->a, TreeMap::new));
+            }
 
             // Controllo per evitare di prenotare slot passati solo se la data è oggi
             if (date.equals(LocalDate.now())) {
@@ -144,13 +197,12 @@ public class TimeSlot {
 
                 // Filtriamo per considerare solo gli slot fino all'orario scelto e dopo l'orario attuale
                 dailySlots = dailySlots.entrySet().stream()
-                .filter(entry -> {
-                    LocalTime timeDay = entry.getKey();
-                    return (bestStart == null || !timeDay.isBefore(bestStart)) &&
-                    bestEnd == null || !timeDay.isAfter(bestEnd);
-                })
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a,b)->a, TreeMap::new));
-
+                        .filter(entry -> {
+                            LocalTime timeDay = entry.getKey();
+                            return (bestStart == null || !timeDay.isBefore(bestStart)) &&
+                                    bestEnd == null || !timeDay.isAfter(bestEnd);
+                        })
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a,b)->a, TreeMap::new));
             }
 
             // Controlliamo se ci sono abbastanza slot disponibili, considerando solo gli slot precedenti o uguali
@@ -262,20 +314,29 @@ public class TimeSlot {
 
         // Test finding time slots available from a specific start time
         LocalDateTime startTime = LocalDateTime.now().plusDays(1).withHour(8).withMinute(0).withSecond(0).withNano(0);
-        LocalTime bestStart = LocalTime.of(10, 0);
+        LocalTime bestStart = LocalTime.of(9, 0);
         LocalTime bestEnd = LocalTime.of(12, 0);
-        Map<LocalDate, List<LocalTime>> availableSlots = ts.findTimeForNumSlots(startTime, 6,new HashSet<>(),bestStart, bestEnd);
+
+        List<InactiveDay> inactiveDays = new ArrayList<>();
+
+        inactiveDays.add(new InactiveDay(
+                UUID.randomUUID().toString(),
+                LocalDate.now().plusDays(1),
+                false,
+                LocalTime.of(10, 0),
+                LocalTime.of(11, 0)
+        ));
+
+        Map<LocalDate, List<LocalTime>> availableSlots = ts.findTimeForNumSlots(startTime, 6, inactiveDays, bestStart, bestEnd);
         System.out.println("Available slots from " + startTime + ": " + availableSlots);
 
         // Test reserving slots
-        boolean reservationSuccess = ts.reserveTimeSlots(LocalDateTime.now().plusDays(1).withHour(11), 6,bestStart, bestEnd);
-        System.out.println("Reservation at 10 AM successful: " + reservationSuccess);
+        boolean reservationSuccess = ts.reserveTimeSlots(LocalDateTime.now().plusDays(1).withHour(9), 6,bestStart, bestEnd, inactiveDays);
+        System.out.println("Reservation at 11 AM successful: " + reservationSuccess);
 
         // Check availability after reservation
-        availableSlots = ts.findTimeForNumSlots(startTime, 6,new HashSet<>(),bestStart, bestEnd);
+        availableSlots = ts.findTimeForNumSlots(startTime, 6, inactiveDays, bestStart, bestEnd);
         System.out.println("Available slots after reservation from " + startTime + ": " + availableSlots);
-
-
 
         System.out.println(ts);
 
