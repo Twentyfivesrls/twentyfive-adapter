@@ -29,4 +29,9 @@ public class Card {
     private Date creationDate; //when the card is created
     private Date lastScanDate; //when the card is scanned for the last time
     public Boolean isActive;
+
+    private String type;
+    private String tournamentName;
+    private Integer voucherAmount;
+    private Integer tournamentPosition;
 }
