@@ -20,6 +20,7 @@ public class Card {
     private String cardGroupId;
     private String customerId;
     private String ownerId;
+    private String cardCode;
 
     private String name;
     private String surname;
