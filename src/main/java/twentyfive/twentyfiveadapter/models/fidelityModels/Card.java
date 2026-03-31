@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -35,4 +36,6 @@ public class Card {
     private String tournamentName;
     private Integer voucherAmount;
     private Integer tournamentPosition;
+
+    private List<String> note;
 }
