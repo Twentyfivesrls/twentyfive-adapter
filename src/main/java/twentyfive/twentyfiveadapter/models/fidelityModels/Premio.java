@@ -22,4 +22,7 @@ public class Premio {
     private Date claimDate;
     private Date cardComplete;
     private boolean claimed;
+
+    private String note;
+    private Integer points;
 }

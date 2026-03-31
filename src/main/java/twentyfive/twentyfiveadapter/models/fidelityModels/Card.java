@@ -37,6 +37,4 @@ public class Card {
     private String tournamentName;
     private Integer voucherAmount;
     private Integer tournamentPosition;
-
-    private Map<String, Integer> note;
 }
