@@ -15,5 +15,6 @@ public class FilterCardGroupRequest {
     private LocalDateTime fromDate;
     private LocalDateTime toDate;
     private String name;
+    private String cardGroupId;
 
 }
