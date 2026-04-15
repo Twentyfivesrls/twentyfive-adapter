@@ -18,6 +18,7 @@ public class Ingredient {
     private List<String> allergenNames; // Utilizzo un enum per gli allergeni, che dovrai definire
     private String description;
     private String categoryId;
+    private String contain;
     private boolean alcoholic; // True se l'ingrediente contiene alcol e viene usato solo per bagnare
     private boolean active = true; // True se l'ingrediente è attivo/disponibile
 }
