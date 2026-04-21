@@ -166,13 +166,16 @@ public class TimeSlot {
             LocalTime time = pickupDate.toLocalTime();
             LocalTime now = LocalTime.now();
 
+            // Vista filtrata usata SOLO per il controllo disponibilità — dailySlots rimane il riferimento originale
+            Map<LocalTime, Integer> slotsForCheck = dailySlots;
+
             if (inactiveDays != null) {
                 List<InactiveDay> partialClosed = inactiveDays.stream()
                         .filter(d -> !d.isFullDay() && d.getDate().equals(date))
                         .collect(Collectors.toList());
 
                 // rimuovi le ore dentro le fasce chiuse
-                dailySlots = dailySlots.entrySet().stream()
+                slotsForCheck = dailySlots.entrySet().stream()
                         .filter(entry -> partialClosed.stream().noneMatch(d -> {
                             LocalTime start = d.getStartTime();
                             LocalTime end = d.getEndTime();
@@ -196,7 +199,7 @@ public class TimeSlot {
                 }
 
                 // Filtriamo per considerare solo gli slot fino all'orario scelto e dopo l'orario attuale
-                dailySlots = dailySlots.entrySet().stream()
+                slotsForCheck = slotsForCheck.entrySet().stream()
                         .filter(entry -> {
                             LocalTime timeDay = entry.getKey();
                             return (bestStart == null || !timeDay.isBefore(bestStart)) &&
@@ -206,15 +209,15 @@ public class TimeSlot {
             }
 
             // Controlliamo se ci sono abbastanza slot disponibili, considerando solo gli slot precedenti o uguali
-            if (!this.checkForHoles(dailySlots, time, numSlots)) {
+            if (!this.checkForHoles(slotsForCheck, time, numSlots)) {
                 return false;
             } else {
                 int slotsToReserve = numSlots;
 
                 // Usare headMap per considerare solo gli orari precedenti o uguali al pickup time
-                NavigableMap<LocalTime, Integer> subMap = new TreeMap<>(dailySlots).headMap(time, true).descendingMap();
+                NavigableMap<LocalTime, Integer> subMap = new TreeMap<>(slotsForCheck).headMap(time, true).descendingMap();
                 for (Map.Entry<LocalTime, Integer> entry : subMap.entrySet()) {
-                    int availableSlots = entry.getValue();
+                    int availableSlots = dailySlots.getOrDefault(entry.getKey(), 0);
 
                     if (slotsToReserve > 0 && availableSlots > 0) {
                         int slotsDeducted = Math.min(availableSlots, slotsToReserve);
